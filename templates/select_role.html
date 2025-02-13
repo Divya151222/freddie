@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Role</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='select_role.css') }}">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false,
+                },
+                'google_translate_element'
+            );
+        }
+    
+        // Save selected language in localStorage
+        function setLanguageCookie() {
+            const selectBox = document.querySelector('.goog-te-combo');
+            if (selectBox) {
+                selectBox.addEventListener('change', () => {
+                    const selectedLang = selectBox.value;
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                });
+            }
+        }
+    
+        // Apply saved language on page load
+        function applySavedLanguage() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                const iframe = document.querySelector('.goog-te-menu-frame');
+                if (iframe) {
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                }
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguageCookie();
+            applySavedLanguage();
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <div class="role-container">
+        <h2>Select Your Role</h2>
+        <form method="post">
+            <button type="submit" name="role" value="Coach" class="role-button">Coach</button>
+            <button type="submit" name="role" value="User" class="role-button">User</button>
+        </form>
+    </div>
+</body>
+</html>

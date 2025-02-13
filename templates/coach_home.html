@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='coach_home.css') }}">
+</head>
+<body>
+    <nav>
+        <ul class="navbar">
+            <li><a href="#dashboard-overview">Dashboard Overview</a></li>
+            <li><a href="#upcoming-events">Upcoming Events</a></li>
+            <li><a href="#recent-notifications">Notifications</a></li>
+            <li><a href="#announcements">Announcements</a></li>
+            <li><a href="#feedback-support">Feedback & Support</a></li>
+        </ul>
+    </nav>
+
+    <div id="content">
+        <h1>Welcome</h1>
+
+        <section id="dashboard-overview" class="container">
+            <h2>Dashboard Overview</h2>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Active Users</h3>
+                    <p>120</p>
+                </div>
+                <div class="card">
+                    <h3>Upcoming Sessions</h3>
+                    <p>5</p>
+                </div>
+                <div class="card">
+                    <h3>Recent Notifications</h3>
+                    <p>3</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="upcoming-events" class="container">
+            <h2>Upcoming Events</h2>
+            <div id="calendar"></div> <!-- Interactive calendar goes here -->
+            <ul id="events-list">
+                <li>Session with John Doe - 2 PM</li>
+                <li>Team Meeting - 4 PM</li>
+            </ul>
+        </section>
+
+        <section id="recent-notifications" class="container">
+            <h2>Recent Notifications</h2>
+            <div class="notification-feed">
+                <p>New coaching session assigned.</p>
+                <p>Feedback received from Jane Smith.</p>
+            </div>
+        </section>
+
+        <section id="announcements" class="container">
+            <h2>Announcements</h2>
+            <div class="announcements-feed">
+                <p>New coaching program starting next month.</p>
+                <p>Check out the updated guidelines.</p>
+            </div>
+        </section>
+
+        <section id="feedback-support" class="container">
+            <h2>Feedback & Support</h2>
+            <form>
+                <label for="feedback">Your Feedback:</label>
+                <textarea id="feedback" name="feedback" rows="4" placeholder="Enter your feedback here..."></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>

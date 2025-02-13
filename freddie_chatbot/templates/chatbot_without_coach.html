@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: rgb(4, 4, 64);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
+    .navbar {
+        background-color: black;
+        overflow: hidden;
+    }
+    
+    .navbar a {
+        float: left;
+        display: block;
+        color: #ffffff;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+    
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    
+    .eduvitz {
+        float: left;
+        color: #007bff;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+    
+    
+    
+   
+    .tagline {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 16px;
+        color: white; /* White text */
+        font-weight: bold;
+        margin-top: 1px;
+    }
+    
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f4f4f4;
+        padding: 10px 15px;
+        border-bottom: 2px solid #ccc;
+    }
+
+    /* Style for "Freddie" */
+.freddie {
+    font-family: 'Georgia', serif; /* Change to your preferred font */
+    color: #4CAF50; /* A green color, change as needed */
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* General header styles */
+.header h2 {
+    font-family: 'Arial', sans-serif; /* Default font for the rest of the text */
+    color: #333; /* Default color for the rest of the text */
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Font control buttons */
+.font-controls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#increase-font, #decrease-font {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#increase-font:hover, #decrease-font:hover {
+    background-color: #ddd;
+}
+
+    /*.chat-container {
+        max-width: 800px;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: white;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }*/
+    .chat-container {
+        max-width: 800px;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: white;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-size: 10px;
+    
+    
+    
+    
+    
+    overflow: auto; /* Enable scrollbars if content overflows */
+    resize: both; /* Allow resizing in both directions */
+    
+}
+
+    
+    .chat-box {
+        padding: 20px;
+        overflow-y: auto;
+        height: 320px;
+        font-size: 14px;
+    }
+    
+    .username {
+        font-weight: bold; /* Make the username bold */
+        color: darkred;
+    }
+    
+    .message {
+        margin-bottom: 10px;
+        clear: both;
+        overflow: auto;
+        word-wrap: break-word; /* Ensures long text wraps */
+    max-width: 70%; /* Restrict the maximum width of chat bubbles */
+    }
+    
+    .user-message {
+        background-color: lightblue;
+        border-radius: 10px;
+        padding: 10px;
+        float: right;
+        /*font-size: 16px;*/
+        max-width: 60%;
+        font-family: /*'Quicksand', sans-serif;*/ /* Rounded font */'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight: 600;
+    }
+    
+    .bot-message {
+        background-color: lightgray;
+        border-radius: 10px;
+        padding: 10px;
+        float: left;
+       /*font-size: 16px;*/
+        color: black;
+        max-width: 60%;
+        font-family: /*'Quicksand', sans-serif;*/ /* Rounded font */'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight: 600;
+    }
+    
+    .user-message, .bot-message {
+        line-height: 1.5; /* Adjust line height */
+    }
+    
+    .timestamp {
+        font-size: smaller;
+        color: rgb(4, 4, 64);
+        margin-top: 5px;
+    }
+    
+    .bot-image {
+        max-width: 60%;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        clear: both;
+        display: block;
+    }
+    
+    .input-box {
+        padding: 10px;
+        text-align: center;
+        background-color: #f9f9f9;
+    }
+    
+    .input-box input[type="text"] {
+        width: 80%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    .input-box input[type="submit"] {
+        padding: 5px 10px;
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    
+    .avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 8px;
+        float: left;
+    }
+    
+    button {
+        padding: 10px 20px; /* Adjust padding for a better appearance */
+        font-size: 16px; /* Font size for button text */
+        font-family: 'Quicksand', sans-serif; /* Rounded font */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s, transform 0.2s; /* Smooth transitions for background color and scaling */
+        margin: 5px; /* Add some margin between buttons */
+    }
+    
+    .button-container {
+        display: flex; /* Use flexbox for alignment */
+        justify-content: center; /* Center buttons horizontally */
+        margin-top: 10px; /* Space between the text and buttons */
+    }
+    
+    #existing-button {
+        background-color: #007bff; /* Blue background */
+        color: white; /* White text */
+    }
+    
+    #existing-button:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+        transform: translateY(-2px); /* Lift effect */
+    }
+    
+    #new-button {
+        background-color: #28a745; /* Green background */
+        color: white; /* White text */
+    }
+    
+    #new-button:hover {
+        background-color: #218838; /* Darker green on hover */
+        transform: translateY(-2px); /* Lift effect */
+    }
+    
+    .user-message .avatar {
+    
+    right: 100%; /* Position the user avatar to the left of the message */
+        margin-right: 8px; /* Add space between avatar and message */
+    }
+    
+    .topic-container {
+        display: flex;
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center buttons horizontally */
+        margin-top: 10px; /* Space above the topic buttons */
+    }
+    
+    .topic-button {
+        background-color: #6f42c1; /* Blue background */
+        color: white; /* White text */
+        padding: 8px 12px; /* Slim button padding */
+        font-size: 14px; /* Font size */
+        font-family: 'Quicksand', sans-serif; /* Rounded font */
+        border: none; /* No border */
+        border-radius: 20px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor */
+        margin: 5px 0; /* Vertical space between buttons */
+        transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+        width: 200px; /* Fixed width for slim appearance */
+    }
+    
+    .topic-button:hover {
+        background-color: #5a3e9b; /* Darker blue on hover */
+        transform: translateY(-2px); /* Lift effect */
+    }
+    
+    .bot-message .avatar {
+        left: 100%; /* Position the bot avatar to the right of the message */
+        margin-left: 8px; /* Add space between avatar and message */
+    }
+    
+    #popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Overlay effect */
+        z-index: 1000;
+    }
+    
+    #popup-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1000;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    #popup-box p {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    
+    #popup-box a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    #popup-box a:hover {
+        text-decoration: underline;
+    }
+    
+    #popup-box button {
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    #popup-box button:hover {
+        background-color: #0056b3;
+    }
+    
+    /* Button for "Maybe Later" */
+    #popup-box button:last-child {
+        background-color: #6c757d;
+    }
+    
+    #popup-box button:last-child:hover {
+        background-color: #5a6268;
+    }
+    
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+    .message.no-avatar .avatar, .message.no-avatar .username {
+    display: none;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.typing-indicator .typing-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.typing-indicator .typing-dots span {
+    width: 8px;
+    height: 8px;
+    background-color:black;
+    
+    border-radius: 50%;
+    animation: blink 1.5s infinite ease-in-out;
+}
+
+.typing-indicator .typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator .typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+ /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .scrollable-box {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+        .agree-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .input-box input:disabled,
+        .input-box button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        /* Popup overlay */
+        #terms-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        #terms-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #terms-box h2 {
+            margin-top: 0;
+        }
+
+        .scrollable-terms {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+
+        .agree-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+@keyframes blink {
+    0%, 80%, 100% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+}
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+        .chat-container {
+            max-width: 100%;
+            margin: 10px;
+        }
+    
+        .chat-box {
+            height: 250px;
+            padding: 10px;
+        }
+    
+        .user-message, .bot-message {
+            max-width: 80%;
+            font-size: 12px;
+        }
+    
+        .input-box input[type="text"] {
+            width: 70%;
+        }
+    
+        .button-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    
+        button {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .chat-box {
+            height: 200px;
+        }
+    
+        .input-box input[type="text"] {
+            width: 100%;
+        }
+    
+        .button-container {
+            flex-direction: column;
+        }
+    
+        .button {
+            width: 100%;
+        }
+    }
+    
+           
+        
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a class="eduvitz" href="{{ url_for('index') }}">EDZ Wellness</a>
+        
+        <div class="clearfix"></div>
+    </div>
+    
+    
+    <div class="chat-container">
+        <div class="header">
+            <h2>
+                <span class="freddie">Freddie</span> — Your Personal Life Coach at Your Fingertips!
+            </h2>
+            <div class="font-controls">
+                <button id="increase-font">A+</button>
+                <button id="decrease-font">A-</button>
+            </div>
+        </div>
+
+        <div class="chat-box" id="chat-box">
+            <!-- Display previous chat history -->
+            {% for chat in chat_history %}
+                <div class="message user-message">
+                    <img class="avatar" src="{{ url_for('static', filename='images/d.png') }}" alt="User">
+                    <strong class="username">{{current_user.username}}:</strong> {{ chat.answer }}
+                </div>
+                <div class="message bot-message">
+                    <img class="avatar" src="{{ url_for('static', filename='images/b.png') }}" alt="Freddie">
+                    <strong class="username">Freddie:</strong> {{ chat.question }}
+                </div>
+            {% endfor %}
+            
+            <!-- Default message prompting user to type "hi" or "hello coach" if no chat history -->
+            {% if not chat_history %}
+            <div class="message bot-message">
+                <img class="avatar" src="{{ url_for('static', filename='images/b.png') }}">
+                <strong class="username">Freddie:</strong>
+                Hi there! I'm Freddie, your personal life coach. My goal is to help you find clarity, set meaningful goals, and keep you motivated along the way.
+            </div>
+            
+            <div class="message bot-message no-avatar">
+                <br>To get started, type <strong>"hi"</strong> or <strong>"hello coach"</strong>. Whenever you're ready to end, just type <strong>"bye"</strong> or <strong>"stop"</strong>. Let's work together to make today a step toward your goals!
+            </div>
+            
+            
+            {% endif %}
+        </div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Chat with Freddie" onkeypress="handleKeyPress(event)">
+            <button id="mic-button" onclick="startSpeechRecognition()">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <input type="submit" value="Send" onclick="sendMessage()">
+        </div>
+    </div>
+
+    <!-- Terms and Conditions Overlay -->
+    {% if not current_user.has_agreed %}
+    <!-- Terms and Conditions Overlay -->
+    <div id="terms-overlay">
+        <div id="terms-box">
+            <h3 style="text-align: center; color: #4CAF50;">Welcome to Freddie!</h3>
+            
+            <div class="scrollable-terms">
+                <p>
+                    Freddie, the Intelligent Online Life Coach, is an AI-based tool designed to provide general guidance, motivational support, and personalized coaching for personal and professional growth.
+                </p>
+                <p>
+                    Please note that Freddie is not a substitute for professional medical, mental health, or therapeutic advice. Any suggestions or recommendations made by Freddie, especially those related to health, wellness, or emotional well-being, must be validated with a qualified physician, therapist, or licensed healthcare professional before being acted upon.
+                </p>
+                <p>
+                    Freddie is not trained or certified to diagnose, treat, or provide medical or mental health interventions at this time. Its purpose is to empower users through general coaching and motivational strategies.
+                </p>
+                <p>
+                    By using Freddie, you acknowledge that the platform's content and insights are intended for informational purposes only and should not be interpreted as medical advice or treatment. Freddie will securely store your personal data, including login information and interactions, for 180 days from your last login. After this period, all personal data will be deleted unless otherwise required by law or regulation.
+                </p>
+                <p>
+                    We may use non-personal data, such as anonymized responses between you and Freddie, to improve and train our AI models. This ensures Freddie becomes smarter and more helpful for all users while maintaining your privacy.
+                </p>
+            </div>
+            <button class="agree-button" id="agree-button">I Agree</button>
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="popup-overlay">
+        <div id="popup-box">
+            <p>Thank you for using Freddie. Please <a href="https://forms.gle/Va6as6YrwrGwQNok8" target="_blank">click here</a> to fill out the feedback form.</p>
+        </div>
+    </div>
+    <div id="session-end-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; padding: 20px; z-index: 1000; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 10px; width: 80%; max-width: 400px;">
+        <p>You are approaching the end of the session. Please wrap up any remaining points.</p>
+        <p style="margin-top: 10px;">To explore more topics or schedule additional sessions, feel free to email us at: 
+            <a href="mailto:info@edzwellnes.fit" style="color: #4CAF50; text-decoration: none;">info@edzwellnes.fit</a>
+        </p>
+        <button onclick="closePopup1()" style="margin-top: 20px; background-color: #4CAF50; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">OK</button>
+    </div>
+    
+    
+    <!-- Overlay for dimming background when popup appears -->
+    <div id="popup-overlay1" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;  z-index: 999;"></div>
+
+    <script>
+        var imageList = [
+            '{{ url_for("static", filename="images/freddie_image/1.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/2.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/3.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/4.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/5.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/6.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/7.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/8.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/9.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/10.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/11.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/12.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/13.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/14.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/15.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/16.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/17.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/18.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/19.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/20.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/21.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/22.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/23.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/24.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/25.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/26.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/27.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/28.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/29.jpg") }}',
+            '{{ url_for("static", filename="images/freddie_image/30.jpg") }}',
+
+        ];
+    
+        var botResponseCounter = 0; // Initialize the counter
+        //var additionalQuestionsCounter = 0; // Counter for tracking additional questions
+        var subscriptionDisplayed = false; // Flag to check if the subscription message has been displayed
+        var userResponses = []; // Initialize userResponses array
+        var fcy = 1; // Initialize fcy
+        var goals = []; // Array to store the user's goals
+        var goalCounter = 0; // Counter to track the number of goals  
+        var feedback;
+        // Initialize the topic limit flag
+let topicLimitReached = false;
+        // Define the inactivity timeout period (8 minutes in milliseconds)
+const INACTIVITY_TIMEOUT = 8 * 60 * 1000; // 8 minutes
+
+let inactivityTimer;
+
+// Start or reset the inactivity timer
+function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(showInactivityPopup, INACTIVITY_TIMEOUT);
+}
+
+// Show inactivity pop-up and disable the input field
+function showInactivityPopup() {
+    // Display the inactivity message
+    displayBotResponse("You have been inactive for 8 minutes. Please refresh the page or log in again to continue.");
+    
+    // Disable user input
+    document.getElementById("user-input").disabled = true;
+}
+        function getCurrentTime() {
+    const now = new Date();
+    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+        
+        function getRandomImage() {
+            var randomIndex = Math.floor(Math.random() * imageList.length);
+            return imageList[randomIndex];
+        }
+    
+        function handleKeyPress(event) {
+            if (event.keyCode === 13) {
+                
+                sendMessage();
+                resetInactivityTimer(); // Reset the timer after user input
+            }
+        }
+        let inputEnabled = true; // Tracks if input is enabled
+
+        // Function to toggle the input field
+function toggleUserInput(enabled) {
+    inputEnabled = enabled;
+    document.getElementById("user-input").disabled = !enabled;
+}
+        async function sendMessage() {
+            console.log("newusermsgcount:",userMessageCount)
+            console.log("botResponseCounter:",botResponseCounter)     
+    resetInactivityTimer();
+
+    // Check if the user has reached the topic limit
+    
+
+            // Prevent further messages after 10 bot responses
+            
+
+            if (userMessageCount === 23) {
+        showPopup1();
+    }
+            // Get the current user's email from your backend (use dynamic data)
+    var userEmail = "{{current_user.email}}"; // Dynamically populated
+    var userDomain = userEmail.split("@").pop(); // Extract domain
+
+    // Check email domain and message count thresholds
+    if (userDomain === "freddie.com" && userMessageCount > 25) {
+        await sendEmail();
+        showPopup(); // Feedback and email popup
+        return;
+    } else if (userMessageCount > 25) {
+        await sendEmail();
+        showPopup(); // Feedback and email popup
+        return;
+    }
+
+    
+            var userMessage = document.getElementById("user-input").value;
+            var chatBox = document.getElementById("chat-box");
+    
+            // Check if the user's goal has more than 10 words
+            if (fcy >= 2 && fcy <= 5 && !["n.a", "(n.a)", "n.a".toUpperCase(), "(n.a)".toUpperCase()].includes(userMessage)) { // Goal setting steps
+    var messageLength = userMessage.length;
+    if (messageLength <= 10) {
+        displayBotResponse("Your goal is too short. Please provide more details.");
+        return; // Stop further processing if the goal is too short
+    }
+} else if (fcy > 5) { // After goal setting (other responses)
+    var messageLength = userMessage.length;
+    if (messageLength <= 20 && !["bye", "end", "stop"].includes(userMessage.trim())) {
+        displayBotResponse("Your response is too short. Please provide more details.");
+        return; // Stop further processing if the response is too short
+    }
+}
+
+   
+
+            var userMessageElement = document.createElement("div");
+            userMessageElement.classList.add("message", "user-message");
+            userMessageElement.innerHTML = `
+        <img class="avatar" src="{{ url_for('static', filename='images/d.png') }}"> 
+        <strong class="username">{{current_user.username}}:</strong> ${userMessage}
+        <div class="timestamp">${getCurrentTime()}</div>
+    `;
+            chatBox.appendChild(userMessageElement);
+
+            // Increment the user message count
+    userMessageCount++;
+
+    // Clear the input field
+    document.getElementById("user-input").value = "";
+
+    // Clear input field
+    document.getElementById("user-input").value = "";
+
+    // Add typing indicator
+    var typingIndicator = document.createElement("div");
+    typingIndicator.classList.add("message", "bot-message", "typing-indicator");
+    typingIndicator.innerHTML = `
+        <img class="avatar" src="{{ url_for('static', filename='images/b.png') }}"> 
+        <div class="typing-dots">
+            <span></span><span></span><span></span>
+        </div>
+    `;
+    chatBox.appendChild(typingIndicator);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Simulate typing delay
+    await new Promise(resolve => setTimeout(resolve, 3000)); // Adjust delay as needed
+
+    
+
+    // Remove typing indicator
+    chatBox.removeChild(typingIndicator);
+
+    
+    async function checkGoals() {
+    var cust_no = '{{ current_user.cust_no }}'; // Assuming cust_no is available
+    const response = await fetch(`/check_goals/${cust_no}`);
+    const data = await response.json();
+    console.log(data); // Debugging: see what data is returned
+
+    // Ensure goal1 is defined
+    let goal1 = data.goals_exist.goal1 || null;  // Set goal1 to null if not found
+    if (goal1) {
+        console.log("At least goal1 exists.");
+        fcy = 5; // Start from this step if goal1 is set
+    } else {
+        // If no goals exist, start with goal-setting
+        feedback = 1;
+        fcy = 2; // Start goal conversation flow
+    }
+}
+       // Check if the user said "bye" or "stop"
+       if ((userMessage.trim() === "bye" || userMessage.trim() === "end" || userMessage.trim() === "stop") && (userMessageCount >= 4)) {
+    console.log("User message count before sending email:", userMessageCount); // Print userMessageCount
+
+    await sendEmail();
+    showPopup();
+
+    displayConclusionMessage();
+    return; // Exit the function to stop further processing
+} 
+else if ((userMessage.trim() === "bye" || userMessage.trim() === "end" || userMessage.trim() === "stop") && (userMessageCount < 4)) {
+    displayConclusionMessage();
+    return; // Exit the function to stop further processing
+}
+
+            
+                // Check if goals exist
+                if (fcy === 1) {
+    await checkGoals(); // Ensure goals are checked before continuing
+    console.log(fcy);
+}
+
+if (fcy === 2) {
+    displayBotResponse("Setting goals is crucial because they give you a clear direction and purpose. Goals help you stay focused, motivated, and accountable. They also allow you to measure your progress and celebrate your achievements. Let's get started with setting your 3 goals.Now that we understand the importance of setting goals, let's take the first step together.Please share your first goal with me.");
+    
+    fcy++;
+
+} else if (fcy === 3) {
+    goals.push(userMessage); // Store Goal 1
+    displayBotResponse(`Great! Now please tell me Goal 2 or type (N.A)`);
+    fcy++;
+
+} else if (fcy === 4) {
+    // Goal 2 logic (skip to topic selection if user inputs "n.a")
+    if (userMessage === "(n.a)" || userMessage === "(n.a)".toUpperCase() || userMessage === "n.a" || userMessage === "n.a".toUpperCase()) {
+        // Skip to the topic selection step if Goal 2 is (n.a) or (N.A)
+        displayBotResponse("It seems you want to skip setting further goals.");
+        goals.push(null); // Save Goal 2 as `null`
+        goals.push(null); // Save Goal 3 as `null` to skip it
+
+        // Save goals to the database
+        saveGoals(goals);
+
+        // Show topic selection options
+        var botResponse = "Please choose an option:<br>";
+        botResponse += '<div class="button-container">';
+        botResponse += '<button id="existing-button" onclick="handleOptionClick(\'existing\')">Existing topics</button>';
+        botResponse += '<button id="new-button" onclick="handleOptionClick(\'new\')">New topic</button>';
+        botResponse += '</div>';
+        displayBotResponse(botResponse, true);
+        document.getElementById("user-input").disabled = true;
+
+        fcy = 6; // Move to topic selection
+    } else {
+        goals.push(userMessage); // Store Goal 2
+        displayBotResponse(`You're doing great! Now, please share your third and final goal or type (N.A).`);
+        fcy++;
+    }
+
+} else if (fcy === 5) {
+    // Goal 3 logic (skip to topic selection if user inputs "n.a")
+    if (userMessage === "(n.a)" || userMessage === "(n.a)".toUpperCase() || userMessage === "n.a" || userMessage === "n.a".toUpperCase()) {
+        // Skip to the topic selection step if Goal 3 is (n.a) or (N.A)
+        displayBotResponse("It seems you want to skip setting your third goal.");
+        goals.push(null); // Save Goal 3 as `null`
+
+        // Save goals to the database
+        saveGoals(goals);
+
+        // Show topic selection options
+        var botResponse = "Please choose an option:<br>";
+        botResponse += '<div class="button-container">';
+        botResponse += '<button id="existing-button" onclick="handleOptionClick(\'existing\')">Existing topics</button>';
+        botResponse += '<button id="new-button" onclick="handleOptionClick(\'new\')">New topic</button>';
+        botResponse += '</div>';
+        displayBotResponse(botResponse, true);
+        document.getElementById("user-input").disabled = true;
+        fcy = 6; // Move to topic selection
+    } else {
+        goals.push(userMessage); // Store Goal 3
+        saveGoals(goals);
+
+        var botResponse = "Please choose an option:<br>";
+        botResponse += '<div class="button-container">';
+        botResponse += '<button id="existing-button" onclick="handleOptionClick(\'existing\')">Existing topics</button>';
+        botResponse += '<button id="new-button" onclick="handleOptionClick(\'new\')">New topic</button>';
+        botResponse += '</div>';
+        displayBotResponse(botResponse, true);
+        document.getElementById("user-input").disabled = true;
+    }
+
+    fcy++;
+}
+
+else if (fcy == 6|| fcy == 7) {
+                userResponses.push(userMessage); // Save the 2nd and 3rd user responses
+    
+                fetchBotResponse(userMessage); // Fetch and display bot response
+                console.log(fcy);
+                fcy++;
+    
+                if (fcy === 8) {
+        // Derive and save a new topic using the recent responses only
+        await deriveAndSaveTopic(userResponses.slice(-2)); // Use only the last 2 responses
+        fcy++;
+    }
+            } else {
+                fetchBotResponse(userMessage);
+            }
+    
+            document.getElementById("user-input").value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        
+        // Initialize inactivity timer on page load
+window.onload = function() {
+    resetInactivityTimer(); // Start the timer when the page loads
+};
+        }
+
+
+        async function handleOptionClick(option) {
+    // Disable the buttons while the check is being processed
+    document.getElementById("existing-button").disabled = true;
+    document.getElementById("new-button").disabled = true;
+    
+    if (option === 'new') {
+        toggleUserInput(true); // Enable input for new topic
+        // Fetch the current user's topic count from the server
+        const cust_no = '{{ current_user.cust_no }}'; // Assuming `cust_no` is available
+        const response = await fetch(`/check_topic_limit/${cust_no}`);
+        const data = await response.json();
+        
+        if (data.topic_count < 1) {
+            displayBotResponse("So what would you like to discuss today?");
+            document.getElementById("user-input").disabled = false;
+            userMessageCount = 1;
+            botResponseCounter=0;
+            fcy = 6;
+        } else {
+            displayBotResponse("You've reached the maximum topic limit for this trial session. To explore more topics and sessions, please contact us at info@edzwellnes.fit.");
+            topicLimitReached = true; // Set the limit flag to true
+            document.getElementById("user-input").disabled = true;
+        }
+
+    } else if (option === 'existing') {
+
+        fetchExistingTopics();
+        document.getElementById("user-input").disabled = true;
+    }
+    
+    // Re-enable the buttons after handling the option
+    document.getElementById("existing-button").disabled = false;
+    document.getElementById("new-button").disabled = false;
+}
+
+
+    // Function to fetch goals from the database
+    var cust_no = '{{ current_user.cust_no }}';
+    async function fetchGoalsFromDatabase(cust_no) {
+    try {
+        const response = await fetch(`/get_goals/${cust_no}`);
+        if (!response.ok) {
+            throw new Error('No goals found or server error');
+        }
+        const data = await response.json();
+        const goals = [data.goal1, data.goal2, data.goal3].filter(goal => goal);
+        console.log('Fetched goals:', goals);
+
+        if (goals.length > 0) {
+            goal1 = goals[0];
+            goal2 = goals[1];
+            goal3 = goals[2];
+        }
+
+        return goals;
+    } catch (error) {
+        console.error('Error fetching goals:', error);
+        return []; // Return an empty array on error
+    }
+}
+
+     // Function to send goals to the backend for saving
+     async function saveGoals(goals) {
+    var cust_no = '{{ current_user.cust_no }}'; // Assuming cust_no is available
+
+    // Replace 'n.a' entries with null values in the goals array
+    const payload = {
+        cust_no: cust_no,
+        goal1: goals[0] === '(n.a)' ? null : goals[0],
+        goal2: goals[1] === '(n.a)' ? null : goals[1],
+        goal3: goals[2] === '(n.a)' ? null : goals[2]
+    };
+
+    await fetch("/save_goals", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+}
+
+    async function fetchExistingTopics() {
+        var response = await fetch("/get_existing_topics", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        var topics = await response.json();
+       
+
+        if (topics.length === 0) {
+            displayBotResponse("You have no previous topics.");
+        } else {
+            var botResponse = "Here are your previous topics:<br>";
+    botResponse += '<div class="topic-container">'; // Create a container for topics
+
+    topics.forEach((topic, index) => {
+        var encodedTopic = encodeURIComponent(topic);
+        botResponse += `<button id="topic-button-${index}" class="topic-button" onclick="selectTopic('${encodedTopic}', this)">${topic}</button>`;
+    });
+
+    botResponse += '</div>'; // Close the topic container
+    displayBotResponse(botResponse, true);
+        }
+    }
+    async function selectTopic(topic, button) {
+    console.log("Selected topic:", topic); // For debugging
+    var decodedTopic = decodeURIComponent(topic);
+    console.log("decoded:", decodedTopic);
+    displayBotResponse("You selected: " + decodedTopic); // Display the decoded topic
+    
+    
+    await fetchChatHistory(decodedTopic); // Fetch the chat history for the selected topic
+    document.getElementById("user-input").disabled = true;
+    // Fetch the response count for the selected topic
+    const responseCount = await fetchResponseCountForTopic(decodedTopic);
+
+    if (responseCount >= 10) {
+        
+        document.getElementById("user-input").disabled = true; // Disable user input
+    } else {
+        document.getElementById("user-input").disabled = false; // Enable user input
+        fcy = 8; // Set the flow control variable to the appropriate value
+    }
+    
+
+    // Disable all other topic buttons
+    disableOtherButtons(button);
+}
+function disableOtherButtons(selectedButton) {
+            const buttons = document.querySelectorAll("[id^='topic-button-']");
+            buttons.forEach(button => {
+                if (button !== selectedButton) {
+                    button.disabled = true; // Disable other buttons
+                    button.style.opacity = 0.5; // Optional: visually indicate the button is disabled
+                }
+            });
+        }
+
+        async function deriveAndSaveTopic(responses) {
+    // Derive the topic asynchronously using only the recent responses
+    var derivedTopic = await deriveTopic(responses);
+    
+    // Save the derived topic to the database
+    saveTopic(derivedTopic);
+    console.log("Derived and saved topic:", derivedTopic);
+}
+
+    
+        async function deriveTopic(responses) {
+            var response = await fetch("/derive_topic", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ responses: responses })
+            });
+            var data = await response.json();
+            return data.topic;
+        }
+    
+        async function saveTopic(topic) {
+            var cust_no = '{{ current_user.cust_no }}';
+    
+            await fetch("/save_topic", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    cust_no: cust_no,
+                    topic: topic
+                })
+            });
+        }
+    
+        async function fetchBotResponse(userMessage) {
+            var response = await fetch("/get_bot_response", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ user_input: userMessage })
+            });
+            var data = await response.json();
+            var botResponse = data.bot_response;
+            // Log the bot response to the console
+             console.log("Bot Response:", botResponse);
+    
+            displayBotResponse(botResponse);
+        }
+    
+        
+        async function displayBotResponse(botResponse) {
+    var chatBox = document.getElementById("chat-box");
+
+    // Split the bot response into sentences
+    var sentences = botResponse.split(/(?<=[.!?])\s+/); // Split by punctuation followed by space
+
+    for (let i = 0; i < sentences.length; i++) {
+        var botMessageElement = document.createElement("div");
+        botMessageElement.classList.add("message", "bot-message");
+
+        if (i === 0) {
+            // Add bot icon and username for the first sentence only
+            botMessageElement.innerHTML = `
+                <img class="avatar" src="{{ url_for('static', filename='images/b.png') }}">
+                <strong class="username">Freddie:</strong> <span class="typing"></span>
+                <div class="timestamp">${getCurrentTime()}</div>
+            `;
+        } else {
+            // Subsequent sentences without the icon
+            botMessageElement.innerHTML = `
+                <span class="typing"></span>
+                <div class="timestamp">${getCurrentTime()}</div>
+            `;
+        }
+
+        // Append the message element to the chat box
+        chatBox.appendChild(botMessageElement);
+
+        // Select the typing span where the animation will occur
+        let typingSpan = botMessageElement.querySelector(".typing");
+
+        if (sentences[i].includes("<div") || sentences[i].includes("<button")) {
+            // Handle HTML inside the response
+            botMessageElement.innerHTML = sentences[i]; // Render the HTML directly
+        } else {
+            // Animate plain text one word at a time
+            await typeSentence(typingSpan, sentences[i]);
+        }
+
+        // Scroll to the bottom of the chat box
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    botResponseCounter++; // Increment the counter
+
+}
+
+// Helper function to animate typing
+async function typeSentence(element, sentence) {
+    let words = sentence.split(" "); // Split the sentence into words
+    for (let word of words) {
+        element.innerHTML += word + " "; // Add the word with a space
+        await new Promise((resolve) => setTimeout(resolve, 150)); // Delay for animation (150ms per word)
+        // Scroll to the bottom of the chat box as it types
+        document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight;
+    }
+
+}
+
+
+        /*async function handleUserMessage() {
+            if (userMessageCount >= 10) {
+                console.log("usermessage:",userMessageCount)
+                await sendEmail();
+                
+                showPopup();
+            
+                displayConclusionMessage();
+                return;
+            }
+    
+            var userMessage = document.getElementById("user-input").value.toLowerCase();
+            var chatBox = document.getElementById("chat-box");
+    
+            var userMessageElement = document.createElement("div");
+            userMessageElement.classList.add("message", "user-message");
+            userMessageElement.innerHTML = '<img class="avatar" src="{{ url_for("static", filename="images/d.png") }}"> <strong class="username">User:</strong> ' + userMessage;
+            chatBox.appendChild(userMessageElement);
+    
+            fetchBotResponse(userMessage);
+    
+            document.getElementById("user-input").value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }*/
+    
+        function displayConclusionMessage() {
+            var chatBox = document.getElementById("chat-box");
+    
+            var conclusionMessageElement = document.createElement("div");
+            conclusionMessageElement.classList.add("message", "bot-message");
+            conclusionMessageElement.innerHTML = '<img class="avatar" src="{{ url_for("static", filename="images/b.png") }}"> <strong class="username">Freddie:</strong> Thank you for using Freddie. We\'ll meet again!';
+            chatBox.appendChild(conclusionMessageElement);
+    
+            document.getElementById("user-input").disabled = true; // Disable user input
+        }
+        async function showPopup() {
+    // Check if it's the user's first time interacting with the bot
+    
+
+    if (feedback==1) {
+        // If first-time user, show the compulsory feedback form
+        document.getElementById("popup-box").innerHTML = `
+            <p>You will receive the conversation transcript on your registered Email address.</p><br>
+            <p>Thank you for using Freddie. Please <a href="https://forms.gle/Va6as6YrwrGwQNok8" target="_blank">click here</a> to fill out the feedback form.</p>
+        `;
+    } else {
+        // If not first-time, give the option to fill now or later
+        document.getElementById("popup-box").innerHTML = `
+            <p>You will receive the conversation transcript on your registered Email Address.</p><br>
+            <p>Would you like to fill the feedback form?</p>
+            <button onclick="fillFormNow()">Fill Now</button>
+            <button onclick="fillFormLater()">Maybe Later</button>
+        `;
+    }
+
+    document.getElementById("popup-overlay").style.display = "block";
+}
+
+function fillFormNow() {
+    // Redirect to the feedback form
+    window.open("https://forms.gle/Va6as6YrwrGwQNok8", "_blank");
+    closePopup();  // Close the popup after opening the form
+}
+
+function fillFormLater() {
+    closePopup();  // Close the popup and allow the user to continue
+}
+
+function closePopup() {
+    document.getElementById("popup-overlay").style.display = "none";
+}
+
+let userMessageCount = 0;  // Declare globally without initializing
+const maxUserMessages = 25;
+
+async function fetchChatHistory(topic) {
+    var cust_no = '{{ current_user.cust_no }}';  // Retrieve the customer number
+
+    console.log("Customer No:", cust_no);  // Log cust_no
+    console.log("Topic:", topic);  // Log topic
+
+    // Decode the topic if it’s URL-encoded
+    var decodedTopic = decodeURIComponent(topic);
+
+    // Check if cust_no is valid
+    if (!cust_no) {
+        console.error("Customer number is missing.");
+        displayBotResponse("Customer number is required.");
+        return;
+    }
+
+    var response = await fetch("/get_chat_history", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ topic: decodedTopic, cust_no: cust_no })
+    });
+
+    var result = await response.json();
+    var chatHistory = result.chat_history;
+    var reachedMaxLimit = result.reached_max_limit;
+    userMessageCount = result.user_message_count +1;  // Set global variable from database
+    botResponseCounter = result.bot_response_counter -1;
+    console.log("Chat History:", chatHistory);  // Log the chat history
+    console.log("Reached Max Limit:", reachedMaxLimit);
+    console.log("Total User Messages:", userMessageCount);  // Use the global variable
+    console.log("total bot responses:", botResponseCounter);
+    var chatBox = document.getElementById("chat-box");
+
+    if (!Array.isArray(chatHistory)) {
+        console.error("Expected an array but received:", chatHistory);
+        displayBotResponse("Error fetching chat history.");
+        return;
+    }
+
+    if (chatHistory.length === 0) {
+        displayBotResponse("No chat history found for this topic.");
+    } else {
+        displayBotResponse("Here are your previous 2 responses:");
+
+        // Display the last 2 messages from chat history
+        chatHistory.forEach(chat => {
+            var messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+
+            if (chat.role === 'user') {
+                messageElement.classList.add("user-message");
+                messageElement.innerHTML = '<img class="avatar" src="{{ url_for("static", filename="images/d.png") }}"> <strong class="username">{{current_user.username}}</strong> ' + chat.content;
+            } else if (chat.role === 'assistant') {
+                messageElement.classList.add("bot-message");
+                messageElement.innerHTML = '<img class="avatar" src="{{ url_for("static", filename="images/b.png") }}"> <strong class="username">Freddie:</strong> ' + chat.content;
+            }
+
+            chatBox.appendChild(messageElement);
+        });
+
+        if (reachedMaxLimit) {
+            document.getElementById("user-input").disabled = true;  // Disable the input field
+            displayBotResponse("You have reached the maximum number of messages.");
+        } else {
+            displayBotResponse(`You have sent ${userMessageCount-1} messages so far. You can send ${25 - (userMessageCount-1)} more.`);
+        }
+    }}
+
+
+// Call fetchChatHistory with the relevant topic when needed to initialize userMessageCount
+// You can then use userMessageCount in other parts of your code
+
+// Utility function to resolve static file URLs
+function url_for_static(filename) {
+    return '/static/' + filename;
+}
+async function fetchResponseCountForTopic(topic) {
+    var cust_no = '{{ current_user.cust_no }}'; // Assuming cust_no is available
+    try {
+        const response = await fetch(`/get_response_count/${cust_no}/${topic}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch response count');
+        }
+        const data = await response.json();
+        return data.count; // Assuming the response contains a count property
+    } catch (error) {
+        console.error('Error fetching response count:', error);
+        return 0; // Default to 0 if there's an error
+    }
+}
+
+// Web Speech API for voice recognition
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.onstart = function() {
+            console.log("Voice recognition started. Speak into the microphone.");
+        };
+
+        recognition.onspeechend = function() {
+            console.log("Voice recognition ended.");
+            recognition.stop();
+        };
+
+        recognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('user-input').value = transcript;
+        };
+
+        function startSpeechRecognition() {
+            recognition.start();
+        }
+
+        async function sendEmail() {
+    try {
+        var cust_no = '{{ current_user.cust_no }}'; // Assuming you have the customer number or email
+
+        // Call your API endpoint to send the email
+        await fetch("/send_email", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                cust_no: cust_no, // Pass the customer number or any needed data
+                transcript: userResponses // Pass the user responses or transcript
+            })
+        });
+
+        console.log("Email sent successfully!");
+    } catch (error) {
+        console.error("Error sending email:", error);
+    }
+}
+
+// Function to display the popup
+function showPopup1() {
+    document.getElementById("session-end-popup").style.display = "block";
+    document.getElementById("popup-overlay1").style.display = "block";
+    document.getElementById("user-input").disabled = true; // Optional: Disable further input
+}
+
+// Function to close the popup
+function closePopup1() {
+    document.getElementById("session-end-popup").style.display = "none";
+    document.getElementById("popup-overlay1").style.display = "none";
+    document.getElementById("user-input").disabled = false; // Re-enable input if you disabled it
+}
+
+const chatBox = document.getElementById('chat-box');
+    const increaseButton = document.getElementById('increase-font');
+    const decreaseButton = document.getElementById('decrease-font');
+
+    let currentFontSize = 16; // Default font size in px
+
+    // Function to increase font size
+    increaseButton.addEventListener('click', () => {
+        currentFontSize += 2; // Increase font size by 2px
+        chatBox.style.fontSize = currentFontSize + 'px';
+    });
+
+    // Function to decrease font size
+    decreaseButton.addEventListener('click', () => {
+        if (currentFontSize > 12) { // Minimum font size limit
+            currentFontSize -= 2; // Decrease font size by 2px
+            chatBox.style.fontSize = currentFontSize + 'px';
+        }
+    });
+
+    const agreeButton = document.getElementById("agree-button");
+        const termsOverlay = document.getElementById("terms-overlay");
+        const userInput = document.getElementById("user-input");
+        const micButton = document.getElementById("mic-button");
+        const sendButton = document.querySelector('input[type="submit"]');
+
+        agreeButton.addEventListener("click", () => {
+            termsOverlay.style.display = "none";
+            userInput.disabled = false;
+            micButton.disabled = false;
+            sendButton.disabled = false;
+        });
+
+        document.getElementById("agree-button").addEventListener("click", function () {
+    fetch('/agree', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Hide the terms modal after saving the agreement
+            document.getElementById("terms-overlay").style.display = "none";
+        } else {
+            alert("Failed to save agreement. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+});
+
+    </script>
+    
+    
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='coach_profile.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('welcome')">Home</a></li>
+            <li><a href="{{ url_for('coach_profile') }}">Profile</a></li>
+            <li><a href="#" onclick="showSection('notifications')">Notifications</a></li>
+            <li><a href="{{ url_for('analytics_report') }}">Analytics Report</a></li>
+            <li><a href="{{ url_for('questions') }}">Questions</a></li>
+            <li><a href="#" id="logout">Logout</a></li>
+            
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Coach Profile</h1>
+        <table class="profile-table">
+            <tr>
+                <th>Detail</th>
+                <th>Information</th>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>{{ coach.full_name }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{ coach.email }}</td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>{{ coach.phone }}</td>
+            </tr>
+            <tr>
+                <td>Experience</td>
+                <td>{{ coach.experience }}</td>
+            </tr>
+            <tr>
+                <td>Specialization</td>
+                <td>{{ coach.specialization }}</td>
+            </tr>
+            <tr>
+                <td>Qualifications</td>
+                <td>{{ coach.qualifications }}</td>
+            </tr>
+            <tr>
+                <td>Availability</td>
+                <td>{{ coach.availability }}</td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td>{{ coach.location }}</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>{{ coach.gender }}</td>
+            </tr>
+            <tr>
+                <td>Languages</td>
+                <td>{{ coach.languages }}</td>
+            </tr>
+            <tr>
+                <td>Preferred Method</td>
+                <td>{{ coach.preferred_method }}</td>
+            </tr>
+            <tr>
+                <td>Twitter</td>
+                <td><a href="{{ coach.twitter }}">{{ coach.twitter }}</a></td>
+            </tr>
+            <tr>
+                <td>Facebook</td>
+                <td><a href="{{ coach.facebook }}">{{ coach.facebook }}</a></td>
+            </tr>
+        </table>
+        <a href="{{ url_for('coach_dashboard') }}" class="btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

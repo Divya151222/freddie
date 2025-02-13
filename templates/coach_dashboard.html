@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='coach_dashboard.css') }}">
+</head>
+<body class="default-theme">
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('coach_dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('coach_profile') }}">Profile</a></li>
+            <li><a href="#" onclick="showSection('notifications')">Notifications</a></li>
+            <li><a href="{{ url_for('analytics_report') }}">Analytics Report</a></li>
+            <li><a href="{{ url_for('questions') }}">Questions</a></li>
+            <li class="avatar-dropdown">
+                <!-- Avatar for displaying initials -->
+                <div id="avatar" class="avatar" onclick="toggleAvatarDropdown()">{{ coach_initial }}</div> <!-- Use coach_initial here -->
+                <!-- Dropdown for themes and logout -->
+                <div id="avatarDropdown" class="dropdown-content">
+                    <div>
+                        <label for="themeSelector">Theme:</label>
+                        <select id="themeSelector" onchange="changeTheme()">
+                            <option value="default-theme">Default</option>
+                            <option value="ocean-theme">Ocean</option>
+                            <option value="sunset-theme">Sunset</option>
+                            <option value="forest-theme">Forest</option>
+                            <option value="vintage-theme">Vintage</option>
+                            <option value="neon-theme">Neon</option>
+                            <option value="pastel-theme">Pastel</option>
+                            <option value="retro-theme">Retro</option>
+                            <option value="arctic-theme">Arctic</option>
+                            <option value="galaxy-theme">Galaxy</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Welcome Section -->
+        <div id="welcomeSection" class="content-section active">
+            <h1>Welcome to the Coach Dashboard!</h1>
+            <p>Select an option from the navigation bar to get started.</p>
+        </div>
+        
+        <!-- Notifications Section -->
+        <div id="notificationsSection" class="content-section">
+            <table id="coachNotificationsTable">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email ID</th>
+                        <th>Selected Coach</th>
+                        <th>Selected Topic</th>
+                        <th>Organization</th>
+                        <th>Department</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Entries will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- JavaScript Section -->
+    <script>
+        // Get coach initial from server-side
+        const coachInitial = "{{ coach_initial }}";  
+        
+        // Display coach initials in the avatar
+        function displayCoachInitial() {
+            document.getElementById('avatar').textContent = coachInitial;  // Set the initials in the avatar
+        }
+
+        // Change theme and store the selected theme in localStorage
+        function changeTheme() {
+            const themeSelector = document.getElementById('themeSelector');
+            const selectedTheme = themeSelector.value;
+            document.body.className = selectedTheme;
+            localStorage.setItem('selectedTheme', selectedTheme);
+        }
+
+        // Load the saved theme from localStorage if it exists
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.body.className = savedTheme;
+                document.getElementById('themeSelector').value = savedTheme;
+            }
+        }
+
+        // Toggle avatar dropdown for theme selection and logout
+        function toggleAvatarDropdown() {
+            const dropdown = document.getElementById('avatarDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Show a specific section (e.g., notifications)
+        function showSection(section) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach((sec) => sec.classList.remove('active'));
+
+            if (section === 'notifications') {
+                document.getElementById('notificationsSection').classList.add('active');
+                loadUserSelection();
+            }
+        }
+
+        // Load user selection (stored in localStorage) into the notifications table
+        function loadUserSelection() {
+            const userSelection = JSON.parse(localStorage.getItem('userSelection'));
+
+            if (userSelection) {
+                const table = document.getElementById('coachNotificationsTable').getElementsByTagName('tbody')[0];
+                const newRow = table.insertRow();
+
+                newRow.insertCell(0).innerText = userSelection.fullName;
+                newRow.insertCell(1).innerText = userSelection.email;
+                newRow.insertCell(2).innerText = userSelection.coach;
+                newRow.insertCell(3).innerText = userSelection.topic;
+
+                newRow.insertCell(4).innerHTML = `
+                    <select>
+                        <option value="org1">Organization 1</option>
+                        <option value="org2">Organization 2</option>
+                    </select>
+                `;
+                newRow.insertCell(5).innerHTML = `
+                    <select>
+                        <option value="dept1">Department 1</option>
+                        <option value="dept2">Department 2</option>
+                    </select>
+                `;
+                newRow.insertCell(6).innerHTML = `
+                    <button onclick="generateCredentials(this)">Generate</button>
+                `;
+
+                // Clear user selection after loading
+                localStorage.removeItem('userSelection');
+            }
+        }
+
+        // Generate random credentials for a user and alert them
+        function generateCredentials(button) {
+            const row = button.closest('tr');
+            const email = row.cells[1].innerText;
+
+            const generatedId = `ID_${Math.random().toString(36).substr(2, 9)}`;
+            const generatedPassword = Math.random().toString(36).substr(2, 8);
+
+            alert(`Generated Credentials:\nID: ${generatedId}\nPassword: ${generatedPassword}`);
+
+            // Store the generated credentials in localStorage
+            storeNotification(email, generatedId, generatedPassword);
+        }
+
+        // Store notifications (generated credentials) in localStorage
+        function storeNotification(email, generatedId, generatedPassword) {
+            const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+            notifications.push({ email, generatedId, generatedPassword });
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+        }
+
+        // Handle user logout
+        function logout() {
+            alert('Logged out successfully.');
+            // Redirect to logout or home page logic here if needed
+        }
+
+        // On page load, display coach initials and load saved theme
+        window.onload = function() {
+            displayCoachInitial();
+            loadSavedTheme();
+        };
+    </script>
+</body>
+</html>

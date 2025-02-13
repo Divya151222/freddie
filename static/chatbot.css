@@ -1,0 +1,219 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    transition: background-color 0.5s;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Align navbar items to the left */
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.navbar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+/* User Avatar Styles */
+.theme-dropdown, .dropdown {
+    display: none;
+    position: absolute; /* Use absolute positioning */
+    top: 60px; /* Adjust according to your navbar height */
+    right: 10px; /* Align it with the right side of the navbar */
+    background-color: white; /* Set background color */
+    border: 1px solid #ccc; /* Add a border */
+    z-index: 1000; /* Ensure it appears above other content */
+    padding: 10px; /* Add padding */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+.theme-item, .dropdown-item {
+    padding: 8px 12px; /* Add padding to items */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.theme-item:hover, .dropdown-item:hover {
+    background-color: #f0f0f0; /* Add hover effect */
+}
+
+.navbar {
+    position: relative; /* Make sure the navbar has relative positioning */
+    padding: 10px; /* Add padding for better layout */
+}
+
+.user-avatar {
+    display: inline-block; /* Ensure the avatar is inline */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    padding: 10px; /* Add some padding */
+    background-color: #e74c3c; /* Background color for the avatar */
+    border-radius: 50%; /* Make it round */
+    text-align: center; /* Center text */
+    width: 40px; /* Set width */
+    height: 40px; /* Set height */
+    line-height: 40px; /* Center the text vertically */
+}
+/* Section Styles */
+.section {
+    padding: 40px 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+/* Chatbot Login Container */
+.chatbot-login-container {
+    display: flex;
+    flex-direction: column; /* Stack form elements vertically */
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-login-container label {
+    margin: 10px 0 5px;
+    color: white;
+}
+
+.chatbot-login-container input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.chatbot-login-container button {
+    padding: 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chatbot-login-container button:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar ul li {
+        margin-bottom: 10px;
+    }
+
+    .section {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    input, button {
+        font-size: 14px;
+    }
+
+    .chatbot-input input {
+        width: 75%;
+    }
+
+    .chatbot-input button {
+        width: 20%;
+    }
+}
+
+/* Themes */
+.default-theme {
+    background-image: url('/static/images/ud.jpg');
+    background-size: cover;
+}
+
+/* Additional Themes (if needed) */
+.default-theme {
+    background-image: url('/static/images/ud.jpg');
+    background-size: cover;
+}
+
+.dark-theme {
+    background-image: url('/static/images/dark theme.jpg');
+    background-size: cover;
+}
+
+.minimalist-theme {
+    background-image: url('/static/images/minimal-theme.jpg');
+    background-size: cover;
+}
+
+.material-theme {
+    background-image: url('/static/images/material theme.jpg');
+    background-size: cover;
+}
+
+.gradient-theme {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.nature-theme {
+    background-image: url('/static/images/nt.jpg');
+    background-size: cover;
+}
+
+.professional-theme {
+    background-image: url('/static/images/loginbg.jpeg');
+    background-size: cover;
+}
+
+.techy-theme {
+    background-image: url('/static/images/tt.jpg');
+    background-size: cover;
+}
+
+.elegant-theme {
+    background-image: url('/static/images/et.jpeg');
+    background-size: cover;
+}
+
+.playful-theme {
+    background-image: url('/static/images/pt1.jpg');
+    background-size: cover;
+}

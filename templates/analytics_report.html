@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytical Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_performance.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="#" id="profile">Profile</a></li>
+            <li><a href="#" id="notifications">Notifications</a></li>
+            <li><a href="{{ url_for('analytics_report') }}">Analytics Report</a></li>
+            <li><a href="{{ url_for('questions') }}">Questions</a></li>
+            <li><a href="#" id="logout">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Analytical Report</h1>
+        <div class="charts">
+            <div class="chart-container">
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Bar Chart
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May'],
+                datasets: [{
+                    label: 'User Growth',
+                    data: [12, 19, 3, 5, 2],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#ffcc00' // Font color for legend
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'User Growth',
+                        color: '#ffcc00' // Font color for title
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#ffcc00' // Font color for y-axis labels
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#ffcc00' // Font color for x-axis labels
+                        }
+                    }
+                }
+            }
+        });
+    
+        // Line Chart
+        const ctxLine = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May'],
+                datasets: [{
+                    label: 'Engagement Rate',
+                    data: [30, 20, 50, 40, 70],
+                    backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#ffcc00' // Font color for legend
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Engagement Rate',
+                        color: '#ffcc00' // Font color for title
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#ffcc00' // Font color for y-axis labels
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#ffcc00' // Font color for x-axis labels
+                        }
+                    }
+                }
+            }
+        });
+    
+        // Pie Chart
+        const ctxPie = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: ['Coaches', 'Users', 'Admins'],
+                datasets: [{
+                    label: 'User Distribution',
+                    data: [300, 100, 50],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)'
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#ffcc00' // Font color for legend
+                        }
+                    }
+                }
+            }
+        });
+    </script>

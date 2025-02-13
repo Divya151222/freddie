@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <!-- Font Awesome for Eye Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false,
+                },
+                'google_translate_element'
+            );
+        }
+    
+        // Save selected language in localStorage
+        function setLanguageCookie() {
+            const selectBox = document.querySelector('.goog-te-combo');
+            if (selectBox) {
+                selectBox.addEventListener('change', () => {
+                    const selectedLang = selectBox.value;
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                });
+            }
+        }
+    
+        // Apply saved language on page load
+        function applySavedLanguage() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                const iframe = document.querySelector('.goog-te-menu-frame');
+                if (iframe) {
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                }
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguageCookie();
+            applySavedLanguage();
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div id="flash-message" data-flash="{{ messages[0][1] }}"></div>
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <!-- Email Field -->
+            <input type="email" name="email" placeholder="Email" required>
+
+            <!-- Password Field with Eye Icon -->
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">
+                    <i id="eyeIcon" class="fas fa-eye"></i>
+                </span>
+            </div>
+
+            <!-- Remember Me Checkbox -->
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember Me</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Login</button>
+
+            <!-- Links for Forgot Password and Registration -->
+            <p><a href="{{ url_for('forgot_password') }}">Forgot Password?</a></p>
+            <p>Don't have an account? <a href="{{ url_for('select_role') }}">Register here</a></p>
+        </form>
+
+        <!-- Google Sign-In Button -->
+        <div id="google-login">
+            <button class="google-button">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google Icon">
+                Sign in with Google
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        // Show Flash Message as an Alert
+        document.addEventListener("DOMContentLoaded", () => {
+            const flashMessage = document.getElementById("flash-message");
+            if (flashMessage) {
+                const message = flashMessage.dataset.flash;
+                if (message) {
+                    alert(message); // Display pop-up with message
+                }
+            }
+        });
+
+        // Handle Google Sign-In Response
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            // Send token to backend for verification and login
+            fetch('/auth/google', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ credential: response.credential })
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/user_dashboard'; // Redirect to user dashboard after successful login
+                } else {
+                    alert('Google login failed');
+                }
+            });
+        }
+
+        // Initialize Google Sign-In Button
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "29838627644-75eskj0hmv98pk5khle6gm3ohcgm9a8h.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-login"), {
+                    theme: "outline",
+                    size: "large"
+                }
+            );
+            google.accounts.id.prompt();
+        };
+
+        // Toggle Password Visibility
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            const eyeIcon = document.getElementById("eyeIcon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>

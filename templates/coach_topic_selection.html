@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='coach_topic_selection.css') }}">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false,
+                },
+                'google_translate_element'
+            );
+        }
+    
+        // Save selected language in localStorage
+        function setLanguageCookie() {
+            const selectBox = document.querySelector('.goog-te-combo');
+            if (selectBox) {
+                selectBox.addEventListener('change', () => {
+                    const selectedLang = selectBox.value;
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                });
+            }
+        }
+    
+        // Apply saved language on page load
+        function applySavedLanguage() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                const iframe = document.querySelector('.goog-te-menu-frame');
+                if (iframe) {
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                }
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguageCookie();
+            applySavedLanguage();
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <title>Profile</title>
+    <title>Coach & Topics</title>
+    <style>
+        /* Navbar Styles */
+        .nav-right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Unique and Aesthetic Username Style */
+        .username-display {
+            position: relative;
+            padding: 15px 30px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .username-display:hover {
+            transform: scale(1.1); /* Hover animation to slightly increase the size */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .username-display::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 35px;
+            background: linear-gradient(135deg, #000000, #1a1a1a 50%, #333333);
+            z-index: -1;
+            animation: gradientAnimation 3s ease-in-out infinite;
+        }
+
+        
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: -35px; /* Adjust position to appear above the username */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .username-display:hover .tooltip {
+            display: block;
+            opacity: 1;
+        }
+
+        .settings-dropdown {
+            position: relative;
+        }
+
+        .settings-dropdown .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            width: 200px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .settings-dropdown.active .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .theme-dropdown {
+            display: none;
+            background-color: white;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 1001;
+        }
+
+        .theme-dropdown .dropdown-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .theme-dropdown .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        /* Responsive Design for Username */
+        @media (max-width: 768px) {
+            .username-display {
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .username-display {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body class="default-theme">
+    <div class="navbar">
+        <div class="nav-left">
+            <ul>
+                <li><a href="{{ url_for('user_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('coach_topic_selection') }}">Coach & Topic</a></li>
+                <li><a href="{{ url_for('chatbot_without_coach') }}">Freddie</a></li>
+                <li class="settings-dropdown">
+                    <a href="javascript:void(0)" onclick="toggleSettingsDropdown()">Settings</a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-item" onclick="toggleThemeDropdown(event)">Themes</div>
+                        <div id="themeDropdown" class="theme-dropdown">
+                            <div class="dropdown-item" onclick="changeTheme('default-theme')">Default</div>
+                            <div class="dropdown-item" onclick="changeTheme('dark-theme')">Dark</div>
+                            <div class="dropdown-item" onclick="changeTheme('minimalist-theme')">Minimalist</div>
+                            <div class="dropdown-item" onclick="changeTheme('gradient-theme')">Gradient</div>
+                            <div class="dropdown-item" onclick="changeTheme('material-theme')">Material</div>
+                            <div class="dropdown-item" onclick="changeTheme('nature-theme')">Nature</div>
+                            <div class="dropdown-item" onclick="changeTheme('professional-theme')">Professional</div>
+                            <div class="dropdown-item" onclick="changeTheme('techy-theme')">Techy</div>
+                            <div class="dropdown-item" onclick="changeTheme('elegant-theme')">Elegant</div>
+                            <div class="dropdown-item" onclick="changeTheme('playful-theme')">Playful</div>
+                        </div>
+                        <div class="dropdown-item" onclick="logout()">Logout</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="username-display" onmouseover="showTooltip(event)" onmouseout="hideTooltip(event)">
+                {{ username }} <!-- Display username here -->
+                <div class="tooltip">{{ username }}</div> <!-- Tooltip displays the username -->
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+    <div id="coach-topics" class="section active">
+        <div class="container">
+            <h3>Select Coach and Topic</h3>
+            <form id="coachTopicsForm">
+                <label for="userName">Name:</label>
+                <input type="text" id="userName" placeholder="Enter your name" required>
+
+                <label for="userEmail">Email:</label>
+                <input type="email" id="userEmail" placeholder="Enter your email" required>
+
+                <label for="coachSelect">Select Coach:</label>
+                <select id="coachSelect" required>
+                    <option value="">--Select a Coach--</option>
+                    <option value="Sanjay Sharma">Sanjay Sharma</option>
+                    <option value="Neha Gupta">Neha Gupta</option>
+                    <option value="Rahul Verma">Rahul Verma</option>
+                    <option value="Pooja Mehta">Pooja Mehta</option>
+                    <option value="Amit Singh">Amit Singh</option>
+                    <option value="Ritu Joshi">Ritu Joshi</option>
+                    <option value="Vikram Rao">Vikram Rao</option>
+                    <option value="Anita Desai">Anita Desai</option>
+                    <option value="Karan Bhatia">Karan Bhatia</option>
+                    <option value="Sneha Nair">Sneha Nair</option>
+                </select>
+
+                <label for="topicSelect">Select Topic:</label>
+                <select id="topicSelect" required>
+                    <option value="">--Select a Topic--</option>
+                    <option value="Time Management">Time Management</option>
+                    <option value="Leadership Skills">Leadership Skills</option>
+                    <option value="Effective Communication">Effective Communication</option>
+                    <option value="Team Building">Team Building</option>
+                    <option value="Conflict Resolution">Conflict Resolution</option>
+                    <option value="Stress Management">Stress Management</option>
+                    <option value="Negotiation Skills">Negotiation Skills</option>
+                    <option value="Public Speaking">Public Speaking</option>
+                    <option value="Emotional Intelligence">Emotional Intelligence</option>
+                    <option value="Networking Skills">Networking Skills</option>
+                </select>
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <div id="selectedDetails" style="display: none;">
+                <h4>Selected Coach and Topic</h4>
+                <p id="selectedCoach"></p>
+                <p id="selectedTopic"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSettingsDropdown() {
+            const settingsDropdown = document.querySelector('.settings-dropdown');
+            settingsDropdown.classList.toggle('active');
+        }
+
+        function toggleThemeDropdown(event) {
+            const themeDropdown = document.getElementById('themeDropdown');
+            themeDropdown.style.display = themeDropdown.style.display === 'block' ? 'none' : 'block';
+            event.stopPropagation();
+        }
+
+        function changeTheme(theme) {
+            document.body.className = theme;
+            document.getElementById('themeDropdown').style.display = 'none';
+        }
+        // Handle form submission
+        document.getElementById('coachTopicsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const userName = document.getElementById('userName').value;
+            const userEmail = document.getElementById('userEmail').value;
+            const selectedCoach = document.getElementById('coachSelect').value;
+            const selectedTopic = document.getElementById('topicSelect').value;
+
+            // Store user selection in local storage
+            localStorage.setItem('userSelection', JSON.stringify({ fullName: userName, email: userEmail, coach: selectedCoach, topic: selectedTopic }));
+
+            // Display a pop-up message
+            alert(`Thank you, ${userName}! You have selected ${selectedCoach} for the topic "${selectedTopic}".`);
+
+            // Clear displayed details
+            document.getElementById('selectedDetails').style.display = 'none'; // Hide selected details
+            document.getElementById('coachTopicsForm').reset(); // Reset the form after submission
+        });
+    </script>
+</body>
+</html>

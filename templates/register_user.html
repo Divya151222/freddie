@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register_user.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false,
+                },
+                'google_translate_element'
+            );
+        }
+
+        // Save selected language in localStorage
+        function setLanguageCookie() {
+            const selectBox = document.querySelector('.goog-te-combo');
+            if (selectBox) {
+                selectBox.addEventListener('change', () => {
+                    const selectedLang = selectBox.value;
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                });
+            }
+        }
+
+        // Apply saved language on page load
+        function applySavedLanguage() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                const iframe = document.querySelector('.goog-te-menu-frame');
+                if (iframe) {
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguageCookie();
+            applySavedLanguage();
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        /* Button Styles */
+        button.register-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff6f61, #de62b2);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        /* Password popup (password rules) */
+        .password-popup {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #333;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            z-index: 1;
+        }
+
+        .password-popup ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .password-popup li {
+            margin-bottom: 8px;
+            color: red;
+        }
+
+        .password-popup li.valid {
+            color: green;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding: 10px;
+            padding-right: 35px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .password-container i {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <h1>User Registration</h1>
+
+        <!-- Error message for existing username -->
+        <p class="error-message" id="nameExistsMessage" style="display:none;">
+            ⚠️ Username already exists. Please choose a different username.
+        </p>
+
+        <form id="registrationForm">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" required>
+
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" required>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required
+                       oninput="checkPasswordStrength()" onfocus="showPasswordPopup()" onblur="hidePasswordPopup()">
+                <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+            </div>
+
+            <!-- Password rules popup -->
+            <div class="password-popup" id="passwordPopup">
+                <strong>Password Requirements:</strong>
+                <ul>
+                    <li id="uppercase">At least one uppercase letter</li>
+                    <li id="lowercase">At least one lowercase letter</li>
+                    <li id="number">At least one number</li>
+                    <li id="special">At least one special character</li>
+                    <li id="length">Minimum of 8 characters</li>
+                </ul>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="register-button">Register as User</button>
+        </form>
+    </div>
+
+    <script>
+        // Show tooltip for password rules
+        function showPasswordPopup() {
+            document.getElementById('passwordPopup').style.display = 'block';
+        }
+
+        // Hide tooltip
+        function hidePasswordPopup() {
+            document.getElementById('passwordPopup').style.display = 'none';
+        }
+
+        // Check password strength
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            
+            // Regular expressions for password requirements
+            const uppercase = /[A-Z]/;
+            const lowercase = /[a-z]/;
+            const number = /\d/;
+            const special = /[!@#$%^&*(),.?":{}|<>]/;
+            const length = password.length >= 8;
+
+            // Update each rule's validation status
+            document.getElementById('uppercase').classList.toggle('valid', uppercase.test(password));
+            document.getElementById('lowercase').classList.toggle('valid', lowercase.test(password));
+            document.getElementById('number').classList.toggle('valid', number.test(password));
+            document.getElementById('special').classList.toggle('valid', special.test(password));
+            document.getElementById('length').classList.toggle('valid', length);
+        }
+
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('togglePassword');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+
+        // Display "Username already exists" error if the username is taken
+        document.getElementById('username').addEventListener('blur', function() {
+            const username = this.value;
+
+            // Check username availability via AJAX
+            fetch(`/check_username?username=${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    const nameExistsMessage = document.getElementById('nameExistsMessage');
+                    if (data.exists) {
+                        nameExistsMessage.style.display = 'block';
+                    } else {
+                        nameExistsMessage.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        // Handle form submission via JavaScript
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent traditional form submission
+
+    const formData = new FormData(this);
+
+    fetch("{{ url_for('register_user') }}", {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert(data.message); // Display pop-up message
+        } else {
+            alert(`Error: ${data.message}`); // Display error message
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+        // Check if the flash message exists
+        $(document).ready(function() {
+            var flashMessage = "{{ get_flashed_messages()[0] }}";  // Get the flash message
+            if (flashMessage) {
+                // Display the pop-up with the flash message
+                alert(flashMessage);
+            }
+        });
+    </script>
+</body>
+</html>

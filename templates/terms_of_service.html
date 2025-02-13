@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Freddie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false,
+                },
+                'google_translate_element'
+            );
+        }
+    
+        // Save selected language in localStorage
+        function setLanguageCookie() {
+            const selectBox = document.querySelector('.goog-te-combo');
+            if (selectBox) {
+                selectBox.addEventListener('change', () => {
+                    const selectedLang = selectBox.value;
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                });
+            }
+        }
+    
+        // Apply saved language on page load
+        function applySavedLanguage() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                const iframe = document.querySelector('.goog-te-menu-frame');
+                if (iframe) {
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                }
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguageCookie();
+            applySavedLanguage();
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* Terms of Service Section */
+        .terms-of-service {
+            padding: 2rem 1rem;
+            background: #fff;
+        }
+
+        .terms-of-service .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .terms-of-service h1, .terms-of-service h2 {
+            color: #007BFF;
+        }
+
+        .terms-of-service a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .terms-of-service a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .contact-us {
+            background-color: #333;
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .contact-us h2 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-us ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-us ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-us a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .contact-us a:hover {
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .terms-of-service {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>EDZ Wellness</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}#hero">Home</a></li>
+            <li><a href="{{ url_for('index') }}#services">Coaching</a></li>
+            <li><a href="{{ url_for('index') }}#about-us">About Us</a></li>
+            <li><a href="{{ url_for('index') }}#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Terms of Service Content -->
+    <section class="terms-of-service">
+        <div class="container">
+            <h1>Terms of Service for Freddie: Intelligent Online Life Coach</h1>
+            <p><strong>Effective Date:</strong> 3rd November 2024</p>
+            <p>Welcome to Freddie, an Intelligent Online Life Coach designed to provide guidance, motivation, and insights to help users navigate various aspects of life. By accessing or using Freddie, you agree to comply with these Terms of Service. Please read them carefully.</p>
+
+            <h2>1. About Freddie</h2>
+            <p>Freddie is a digital life coach powered by advanced artificial intelligence. It is designed to offer general guidance, emotional support, and motivational tools in areas such as career, relationships, wellness, and personal development.</p>
+            <p><strong>Important Disclaimer:</strong> Freddie is not a licensed medical professional, therapist, or healthcare provider. The content and suggestions provided are for informational purposes only and should not be treated as medical advice.</p>
+
+            <h2>2. Medical Disclaimer</h2>
+            <ol>
+                <li>
+                    <strong>Consultation with a Doctor:</strong>
+                    <ul>
+                        <li>Users must seek the advice of a qualified healthcare provider before adopting any recommendations that could impact their physical or mental health.</li>
+                        <li>Specifically, Freddie’s suggestions regarding physical exercises, diets, or home remedies are not substitutes for professional medical treatment.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>No Diagnosis or Treatment:</strong>
+                    <ul>
+                        <li>Freddie does not diagnose medical conditions or provide treatment for any illness.</li>
+                        <li>If you have symptoms of illness or a medical condition, contact a doctor or emergency services immediately.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>User Responsibility:</strong>
+                    <ul>
+                        <li>Users are solely responsible for any actions taken based on Freddie’s suggestions. EDZ Informatics Pvt. Ltd. disclaims all liability for any injury or harm caused by implementing suggestions without proper medical consultation.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>3. User Conduct</h2>
+            <p>By using Freddie, you agree to:</p>
+            <ul>
+                <li>Provide accurate and honest information about yourself.</li>
+                <li>Use Freddie for personal development and wellness purposes only.</li>
+                <li>Refrain from using the platform for illegal or harmful activities.</li>
+            </ul>
+
+            <h2>4. Privacy Policy</h2>
+            <p>Freddie values your privacy. Please review our <a href="{{ url_for('privacy_policy') }}" class="hero-link">Privacy Policy</a> for information on how your data is collected, stored, and used.</p>
+
+            <h2>5. Limitations of Liability</h2>
+            <ol>
+                <li>Freddie is a support tool and does not guarantee results or outcomes.</li>
+                <li>EDZ Informatics Pvt. Ltd. is not responsible for any loss, harm, or damages resulting from reliance on Freddie’s content.</li>
+                <li>By using Freddie, you acknowledge and accept that any decisions or actions based on Freddie’s suggestions are your own responsibility.</li>
+            </ol>
+
+            <h2>6. Termination of Service</h2>
+            <p>EDZ Informatics Pvt. Ltd. reserves the right to suspend or terminate access to Freddie for users who violate these terms or engage in inappropriate behavior.</p>
+
+            <h2>7. Modifications to Terms</h2>
+            <p>These Terms of Service may be updated periodically. Continued use of Freddie after changes have been made constitutes your acceptance of the revised terms.</p>
+
+            <h2>8. Governing Law</h2>
+            <p>These terms are governed by the laws of Telangana, India, and any disputes shall be resolved in accordance with these laws.</p>
+
+            
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <footer class="contact-us">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>Have questions or need assistance? Reach out to us!</p>
+            <ul>
+                <li>Email: <a href="mailto:syed@edzwellness.fit">syed@edzwellness.fit</a></li>
+                <li>Phone: +91 8297738738</li>
+                <li>Address: 101, Manzil Chambers, Santosh Nagar, Hyderabad, TG 500028, India</li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

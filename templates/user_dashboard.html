@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_dashboard.css') }}">
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+            },
+            'google_translate_element'
+        );
+    }
+
+    // Save selected language in localStorage
+    function setLanguageCookie() {
+        const selectBox = document.querySelector('.goog-te-combo');
+        if (selectBox) {
+            selectBox.addEventListener('change', () => {
+                const selectedLang = selectBox.value;
+                localStorage.setItem('selectedLanguage', selectedLang);
+            });
+        }
+    }
+
+    // Apply saved language on page load
+    function applySavedLanguage() {
+        const savedLang = localStorage.getItem('selectedLanguage');
+        if (savedLang) {
+            const iframe = document.querySelector('.goog-te-menu-frame');
+            if (iframe) {
+                iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        setLanguageCookie();
+        applySavedLanguage();
+    });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <title>User Dashboard</title>
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            width: 400px;
+        }
+
+        .modal button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .modal button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Navbar Styles */
+        .nav-right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Unique and Aesthetic Username Style */
+        .username-display {
+            position: relative;
+            padding: 15px 30px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .username-display:hover {
+            transform: scale(1.1); /* Hover animation to slightly increase the size */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .username-display::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 35px;
+            background: linear-gradient(135deg, #000000, #1a1a1a 50%, #333333);
+            z-index: -1;
+            animation: gradientAnimation 3s ease-in-out infinite;
+        }
+
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            top: -35px; /* Adjust position to appear above the username */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .username-display:hover .tooltip {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Responsive Design for Username */
+        @media (max-width: 768px) {
+            .username-display {
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .username-display {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+
+        /* General Layout */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="default-theme">
+    <div class="navbar">
+        <div class="nav-left">
+            <ul>
+                <li><a href="{{ url_for('user_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('coach_topic_selection') }}">Coach & Topic</a></li>
+                <li><a href="{{ url_for('chatbot_without_coach') }}">Freddie</a></li>
+                <li class="settings-dropdown">
+                    <a href="javascript:void(0)" onclick="toggleSettingsDropdown()">Settings</a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-item" onclick="toggleThemeDropdown(event)">Themes</div>
+                        <div id="themeDropdown" class="theme-dropdown">
+                            <div class="dropdown-item" onclick="changeTheme('default-theme')">Default</div>
+                            <div class="dropdown-item" onclick="changeTheme('dark-theme')">Dark</div>
+                            <div class="dropdown-item" onclick="changeTheme('minimalist-theme')">Minimalist</div>
+                            <div class="dropdown-item" onclick="changeTheme('gradient-theme')">Gradient</div>
+                            <div class="dropdown-item" onclick="changeTheme('material-theme')">Material</div>
+                            <div class="dropdown-item" onclick="changeTheme('nature-theme')">Nature</div>
+                            <div class="dropdown-item" onclick="changeTheme('professional-theme')">Professional</div>
+                            <div class="dropdown-item" onclick="changeTheme('techy-theme')">Techy</div>
+                            <div class="dropdown-item" onclick="changeTheme('elegant-theme')">Elegant</div>
+                            <div class="dropdown-item" onclick="changeTheme('playful-theme')">Playful</div>
+                        </div>
+                        <div class="dropdown-item" onclick="logout()">Logout</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="username-display" onmouseover="showTooltip(event)" onmouseout="hideTooltip(event)">
+                {{ username }} <!-- Display username here -->
+                <div class="tooltip">{{ username }}</div> <!-- Tooltip displays the username -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Completion Modal -->
+    <div id="profileCompletionModal" class="modal">
+        <div class="modal-content">
+            <h2>Complete Your Profile</h2>
+            <p>Do you want to complete your profile?</p>
+            <button onclick="redirectToProfile()">Yes</button>
+            <button onclick="closeModal()">Maybe Later</button>
+        </div>
+    </div>
+
+    <div id="home" class="section active">
+        <div class="container">
+            <h1>Welcome to Your Dashboard</h1>
+            <p>Select an option from the menu above to get started.</p>
+            <p>We are glad to have you here! Explore your options and enjoy your experience.</p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Show the profile completion modal when the page loads
+            const profileCompletionModal = document.getElementById('profileCompletionModal');
+            profileCompletionModal.style.display = 'flex';
+        };
+
+        function redirectToProfile() {
+            window.location.href = "{{ url_for('edit_profile') }}"; // Redirect to profile tab
+        }
+
+        function closeModal() {
+            const profileCompletionModal = document.getElementById('profileCompletionModal');
+            profileCompletionModal.style.display = 'none'; // Close the modal when "No" is clicked
+        }
+
+        function toggleSettingsDropdown() {
+            const settingsDropdown = document.querySelector('.settings-dropdown');
+            settingsDropdown.classList.toggle('active');
+        }
+
+        function showTooltip(event) {
+            const tooltip = event.target.querySelector('.tooltip');
+            tooltip.style.display = 'block';
+        }
+
+        function hideTooltip(event) {
+            const tooltip = event.target.querySelector('.tooltip');
+            tooltip.style.display = 'none';
+        }
+
+        function logout() {
+            window.location.href = "{{ url_for('logout') }}"; // Redirect to logout route
+        }
+
+        function changeTheme(theme) {
+            document.body.className = theme; // Change theme by applying the selected class
+        }
+    </script>
+</body>
+</html>

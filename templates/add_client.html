@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Clients</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_client.css') }}">
+</head>
+<body>
+
+<h2>Manage Clients</h2>
+<div class="button-container">
+    <button class="add-client-button" onclick="addNewClientRow()">Add New Client</button> <!-- Add New Client button -->
+</div>
+<table id="clientTable">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Frequency</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="clientTableBody">
+        {% for client in clients %}
+        <tr data-id="{{ client.id }}">
+            <td contenteditable="false">{{ client.first_name }}</td>
+            <td contenteditable="false">{{ client.last_name }}</td>
+            <td title="{{ client.email }}" contenteditable="false">{{ client.email }}</td>
+            <td>
+                <input type="date" value="{{ client.start_date }}" disabled /> <!-- Date Picker for Start Date -->
+            </td>
+            <td>
+                <input type="date" value="{{ client.end_date }}" disabled /> <!-- Date Picker for End Date -->
+            </td>
+            <td contenteditable="false">{{ client.frequency }}</td>
+            <td>
+                <button onclick="editClient(this)">Edit</button>
+                <button onclick="updateClient('{{ client.id }}')" disabled>Save</button>
+                <button onclick="deleteClient('{{ client.id }}')">Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    function addNewClientRow() {
+        // Check if a new row already exists
+        if (document.getElementById('newClientRow')) {
+            alert("Finish adding the new client before creating another.");
+            return;
+        }
+
+        const tableBody = document.getElementById('clientTableBody');
+        const newRow = document.createElement('tr');
+        newRow.setAttribute('id', 'newClientRow');
+
+        newRow.innerHTML = `
+            <td contenteditable="true" id="newFirstName"></td>
+            <td contenteditable="true" id="newLastName"></td>
+            <td contenteditable="true" id="newEmail"></td>
+            <td><input type="date" id="newStartDate" /></td>
+            <td><input type="date" id="newEndDate" /></td>
+            <td contenteditable="true" id="newFrequency"></td>
+            <td>
+                <button onclick="saveNewClient()">Save</button>
+                <button onclick="cancelNewClient()">Cancel</button>
+            </td>
+        `;
+
+        tableBody.appendChild(newRow);
+        // Scroll the new row into view
+    newRow.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+    }
+
+    function saveNewClient() {
+    const firstName = document.getElementById('newFirstName').innerText;
+    const lastName = document.getElementById('newLastName').innerText;
+    const email = document.getElementById('newEmail').innerText;
+    const startDate = document.getElementById('newStartDate').value;
+    const endDate = document.getElementById('newEndDate').value;
+    const frequency = document.getElementById('newFrequency').innerText;
+
+    if (!firstName || !lastName || !email || !startDate || !frequency) {
+        alert("All fields are required.");
+        return;
+    }
+
+    const clientData = {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        start_date: startDate,
+        end_date: endDate,
+        frequency: frequency
+    };
+
+    fetch('/add_client', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(clientData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message && data.message.includes("successfully")) {
+            alert(data.message);
+
+            const tableBody = document.getElementById('clientTableBody');
+            const newRow = document.createElement('tr');
+            newRow.setAttribute('data-id', data.client_id); // Set data-id for future actions
+
+            newRow.innerHTML = `
+                <td>${firstName}</td>
+                <td>${lastName}</td>
+                <td title="${email}">${email}</td>
+                <td><input type="date" value="${startDate}" disabled /></td>
+                <td><input type="date" value="${endDate || ''}" disabled /></td>
+                <td>${frequency}</td>
+                <td>
+                    <button onclick="editClient(this)">Edit</button>
+                    <button onclick="updateClient('${data.client_id}')" disabled>Save</button>
+                    <button onclick="deleteClient('${data.client_id}')">Delete</button>
+                </td>
+            `;
+
+            tableBody.appendChild(newRow);
+            document.getElementById('clientTableBody').removeChild(document.getElementById('newClientRow'));
+        } else {
+            alert('Failed to add client: ' + data.message);
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+    function cancelNewClient() {
+        const newRow = document.getElementById('newClientRow');
+        if (newRow) {
+            newRow.remove();
+        }
+    }
+
+    function editClient(editButton) {
+        const row = editButton.closest('tr');
+
+        row.cells[0].contentEditable = "true";
+        row.cells[1].contentEditable = "true";
+        row.cells[2].contentEditable = "true";
+        row.cells[3].querySelector('input[type="date"]').disabled = false;
+        row.cells[4].querySelector('input[type="date"]').disabled = false;
+        row.cells[5].contentEditable = "true";
+
+        row.querySelector('button[onclick^="updateClient"]').disabled = false;
+        editButton.disabled = true;
+    }
+
+    function updateClient(clientId) {
+        const row = document.querySelector(`tr[data-id="${clientId}"]`);
+        
+        const updatedData = {
+            first_name: row.cells[0].textContent.trim(),
+            last_name: row.cells[1].textContent.trim(),
+            email: row.cells[2].textContent.trim(),
+            start_date: row.cells[3].querySelector('input[type="date"]').value,
+            end_date: row.cells[4].querySelector('input[type="date"]').value,
+            frequency: row.cells[5].textContent.trim()
+        };
+
+        fetch(`/update_client/${clientId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+
+            row.cells[0].contentEditable = "false";
+            row.cells[1].contentEditable = "false";
+            row.cells[2].contentEditable = "false";
+            row.cells[3].querySelector('input[type="date"]').disabled = true;
+            row.cells[4].querySelector('input[type="date"]').disabled = true;
+            row.cells[5].contentEditable = "false";
+
+            row.querySelector('button[onclick="editClient(this)"]').disabled = false;
+            row.querySelector('button[onclick^="updateClient"]').disabled = true;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function deleteClient(clientId) {
+        fetch(`/delete_client/${clientId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            document.querySelector(`tr[data-id="${clientId}"]`).remove();
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>

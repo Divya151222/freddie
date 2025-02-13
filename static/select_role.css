@@ -1,0 +1,88 @@
+/* Global Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: url('/static/images/cb.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.role-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 50px;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    color: #ffcc66;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.role-button {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 15px 0;
+    transition: background 0.3s ease, transform 0.2s ease;
+    outline: none;
+}
+
+.role-button:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    transform: scale(1.05);
+}
+
+.role-button:active {
+    transform: scale(0.95);
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .role-container {
+        padding: 40px;
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .role-button {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .role-button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}

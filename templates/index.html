@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDZ Wellness - Life Coaching Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <!-- Include Font Awesome for icons -->
+      <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/images/EdzWellness.jpg">
+
+    <meta property="og:title" content="Freddie-The Intelligent Life Coach">
+<meta property="og:description" content="Transform your life with Freddie, The Intelligent Life Coach. Join us to experience personalized coaching anytime, anywhere.">
+<meta property="og:image" content="https://www.edzcoach.com/static/images/EdzWellness.jpg">
+<meta property="og:url" content="https://www.edzcoach.com">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EDZ Wellness">
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+            },
+            'google_translate_element'
+        );
+    }
+
+    // Save selected language in localStorage
+    function setLanguageCookie() {
+        const selectBox = document.querySelector('.goog-te-combo');
+        if (selectBox) {
+            selectBox.addEventListener('change', () => {
+                const selectedLang = selectBox.value;
+                localStorage.setItem('selectedLanguage', selectedLang);
+            });
+        }
+    }
+
+    // Apply saved language on page load
+    function applySavedLanguage() {
+        const savedLang = localStorage.getItem('selectedLanguage');
+        if (savedLang) {
+            const iframe = document.querySelector('.goog-te-menu-frame');
+            if (iframe) {
+                iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        setLanguageCookie();
+        applySavedLanguage();
+    });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</head>
+<body>
+    <style>
+        /* Navbar styling and other general styles here */
+
+        /* Social Media Icon Styles */
+        .social-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .social-links li {
+            list-style: none;
+        }
+
+        .social-links li a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px; /* Icon size */
+            height: 16px; /* Icon size */
+            border-radius: 10%; /* Makes icons round */
+            background: linear-gradient(135deg, #6e45e2, #88d3ce); /* Gradient background */
+            color: white;
+            font-size: 1rem; /* Adjust icon size if using font icons */
+            transition: background 0.3s, transform 0.3s ease;
+            text-decoration: none; /* Remove underline */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        }
+
+        /* Hover Effect */
+        .social-links li a:hover {
+            background: linear-gradient(135deg, #88d3ce, #6e45e2); /* Inverse gradient on hover */
+            transform: scale(1.1); /* Slightly grow on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+        }
+
+        .social-links li a img {
+            width: 100%; /* Adjust image size within the icon */
+            height: 100%;
+            display: block;
+        }
+        footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+.hero-terms {
+    margin-top: 20px;
+    font-size: 9px;
+    color: #6c757d;
+    text-align: center;
+}
+
+.hero-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.hero-link:hover {
+    text-decoration: underline;
+}
+#google_translate_element {
+    float: right;
+    margin: 10px;
+}
+
+
+    </style>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>EDZ Wellness</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#services">Coaching</a></li>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <!-- Google Translate Dropdown -->
+        <div id="google_translate_element" style="float: right;"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-container">
+            <h2>Transform Your Life with Our freddie</h2>
+            <p>Experience personalized coaching at your fingertips. Our Freddie is here to guide you on your journey to self-improvement.</p>
+            <div class="cta-buttons">
+                <!--<button class="register-btn">
+                    <a href="{{ url_for('chatbot_without_coach') }}" class="register-link">Chat with Freddie</a>
+                    <i class="fas fa-arrow-right"></i>
+                </button> -->        
+                <div class="parent-container"></div> 
+                      <button class="register-btn">
+                    <a href="{{ url_for('login') }}" class="register-link">Let Us Start
+                    </a>
+                    <i class="fas fa-arrow-right"></i>
+                </button>            
+                </div>
+                <p class="hero-terms" style="font-size: 13px; color: white; text-align: center; margin-top: 15px;">
+                    By using Freddie, you agree to our 
+                    <a href="{{ url_for('terms_of_service') }}" class="hero-link">Terms of Service</a> and 
+                    <a href="{{ url_for('privacy_policy') }}" class="hero-link">Privacy Policy</a>.
+                    Please review them carefully.
+                </p>
+                
+        </div>
+    </section>
+
+    <!-- Services Section -->
+<section id="services" class="services">
+    <div class="service-box">
+        <img src="/static/images/success.jpeg" alt="Success Rate Icon" class="service-icon">
+        <h3>98%</h3>
+        <p>Success Rate</p>
+    </div>
+    <div class="service-box">
+        <img src="/static/images/customer.png" alt="Happy Clients Icon" class="service-icon">
+        <h3>750</h3>
+        <p>Happy Clients</p>
+    </div>
+    <div class="service-box">
+        <img src="/static/images/experience.jpeg" alt="Years of Experience Icon" class="service-icon">
+        <h3>20+</h3>
+        <p>Years Experience</p>
+    </div>
+</section>
+
+
+   <!-- About Us Section -->
+<section id="about-us" class="about-us">
+    <div class="hero-container">
+        <h2>About Us</h2>
+        <p>
+            At EDZ Wellness, we leverage technology to provide you with the best coaching experience. 
+            Our life coaching chatbot is designed to help you navigate your personal development journey, 
+            offering support, resources, and encouragement whenever you need it.
+        </p>
+    </div>
+</section>
+
+
+    <!-- Offerings Section -->
+    <section id="offerings" class="offerings">
+        <h2>How Freddie Can Help You</h2>
+        <div class="offerings-container">
+            <div class="offerings-cards">
+                <div class="offering-card">
+                    <img src="/static/images/login bg.jpg" alt="Freddie Chatbot">
+                    <h3>Freddie - Your Personal Life Coach</h3>
+                    <p>Freddie, your personal life coach , provides you with tailored advice and guidance 24/7 to help you reach your goals.</p>
+                    <button class="register-btns">
+                        <a href="{{ url_for('chatbot_without_coach') }}" class="register-link">Chat with Freddie</a>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>                   </div>
+
+                <div class="offering-card">
+                    <img src="/static/images/coaching support.jpeg" alt="Coach Support">
+                    <h3>Coach Support</h3>
+                    <p>Receive ongoing support from experienced coaches who guide you through your personal and professional development.</p>
+                    <button class="register-btns">
+                        <a href="{{ url_for('register_coach') }}" class="register-link">Register as Coach</a>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>                   </div>
+
+                <div class="offering-card">
+                    <img src="/static/images/user support.jpeg" alt="User Resources">
+                    <h3>User Resources</h3>
+                    <p>Access user-friendly tools and resources designed to enhance your self-improvement journey with ease.</p>
+                    <button class="register-btns">
+                        <a href="{{ url_for('register_user') }}" class="register-link">Register as User</a>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>                   </div>
+
+                <div class="offering-card">
+                    <img src="/static/images/neha_coach.jpg" alt="HR Support">
+                    <h3>HR Support</h3>
+                    <p>HR professionals can leverage Freddie to assist in employee development, helping teams grow and thrive.</p>
+                    <button>Learn More about HR Solutions</button>
+                </div>
+
+                <div class="offering-card">
+                    <img src="/static/images/video.jpg" alt="Video Learning">
+                    <h3>Video Learning</h3>
+                    <p>Learn at your own pace with our comprehensive library of videos tailored to your needs.</p>
+                    <button>View Video Library</button>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="slider-buttons">
+                <button class="prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            <div class="contact-details">
+                <p><strong>Address:</strong> 9CVQ+QJJ, Santosh Nagar, Mehdipatnam, Hyderabad, Telangana 500028</p>
+                <p><strong>Phone:</strong> 077027 09633</p>
+                <p><strong>Email:</strong> support@edzwellness.com</p>
+            </div>
+        </div>
+    
+        <!-- Social Media Section -->
+        <div class="social-media">
+            <h3>Follow Us</h3>
+            <ul class="social-links">
+                <li><a href="https://facebook.com" target="_blank"><img src="/static/images/facebook.png" alt="Facebook"></a></li>
+                <li><a href="https://twitter.com" target="_blank"><img src="/static/images/twitter.png" alt="Twitter"></a></li>
+                <li><a href="https://instagram.com" target="_blank"><img src="/static/images/instagram.jpeg" alt="Instagram"></a></li>
+                <li><a href="https://linkedin.com" target="_blank"><img src="/static/images/linkedin.png" alt="LinkedIn"></a></li>
+            </ul>
+        </div>
+        
+        
+        
+    </section>
+    
+   
+
+    <!-- Include the JS for Slider Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.querySelector('.offerings-cards');
+            const leftArrow = document.querySelector('.prev');
+            const rightArrow = document.querySelector('.next');
+            const cards = document.querySelectorAll('.offering-card');
+
+            let currentIndex = 0;
+            const cardWidth = 280; // Width of each card
+            const visibleCards = 3; // Number of cards to show at once
+
+            function updateArrows() {
+                leftArrow.disabled = currentIndex === 0;
+                rightArrow.disabled = currentIndex >= cards.length - visibleCards;
+            }
+
+            function showNextCard() {
+                if (currentIndex < cards.length - visibleCards) {
+                    currentIndex++;
+                    slider.scrollLeft += cardWidth; // Scroll to the right
+                    updateArrows();
+                }
+            }
+
+            function showPrevCard() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    slider.scrollLeft -= cardWidth; // Scroll to the left
+                    updateArrows();
+                }
+            }
+
+            rightArrow.addEventListener('click', showNextCard);
+            leftArrow.addEventListener('click', showPrevCard);
+
+            updateArrows(); // Initial button state
+        });
+    </script>
+</body>
+</html>

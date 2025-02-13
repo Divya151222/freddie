@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false,
+                },
+                'google_translate_element'
+            );
+        }
+    
+        // Save selected language in localStorage
+        function setLanguageCookie() {
+            const selectBox = document.querySelector('.goog-te-combo');
+            if (selectBox) {
+                selectBox.addEventListener('change', () => {
+                    const selectedLang = selectBox.value;
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                });
+            }
+        }
+    
+        // Apply saved language on page load
+        function applySavedLanguage() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                const iframe = document.querySelector('.goog-te-menu-frame');
+                if (iframe) {
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                }
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguageCookie();
+            applySavedLanguage();
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <title>Verify OTP</title>
+    <style>
+        /* Centering the container */
+        #container {
+    background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    border-radius: 15px;
+    padding: 50px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideUp 1.5s ease-out;
+}
+
+        /* Styling the Verify OTP button */
+        .verify-otp {
+            background: linear-gradient(45deg, #FF5733, #FF7043); /* Color flip on hover */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.4s ease;
+        }
+
+        .verify-otp:hover {
+            background: linear-gradient(45deg, #FF5733, #FF7043); /* Color flip on hover */
+        }
+
+        /* Input field styling */
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"> <!-- Wrapper container -->
+        <h2>Verify OTP</h2>
+
+        <form id="otpForm" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="otp">OTP:</label>
+            <input type="text" id="otp" name="otp" required><br>
+
+            <button type="submit" class="verify-otp">Verify OTP</button>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        // JavaScript to handle OTP form submission and validation
+        document.getElementById('otpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const otp = document.getElementById('otp').value;
+            const messageDiv = document.getElementById('message');
+
+            // Check if OTP field is empty
+            if (otp === '') {
+                messageDiv.textContent = 'Please enter the OTP.';
+                messageDiv.style.color = 'red';
+                return; // Do not proceed if OTP is empty
+            }
+
+            // Proceed to validate OTP by sending data to the server
+            fetch('/verify_otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    otp: otp
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'OTP verified successfully!') {
+                    messageDiv.textContent = 'OTP verified successfully!';
+                    messageDiv.style.color = 'green';
+
+                    // Redirect or navigate to another page if OTP is valid
+                    window.location.href = "/success_page"; // Replace with the actual URL of the next page
+                } else {
+                    messageDiv.textContent = 'Invalid OTP!';
+                    messageDiv.style.color = 'red';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                messageDiv.textContent = 'An error occurred. Please try again later.';
+                messageDiv.style.color = 'red';
+            });
+        });
+    </script>
+</body>
+</html>

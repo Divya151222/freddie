@@ -1,0 +1,600 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+}
+
+.logo h1 {
+    color: white;
+    margin: 0;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: background 0.3s ease;
+}
+
+.nav-links li a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+/* Hero Section */
+/* Hero Section */
+.hero {
+    background: url('/static/images/welcome1.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 0 20px;
+    position: relative;
+}
+
+.hero-container {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-container h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #fff;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.hero-container p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: flex-start; /* Aligns the button to the left */
+    align-items: center;
+}
+
+button {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 30px 50px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #2980b9, #1a5276);
+}
+
+button::before {
+    content: '→';
+    font-size: 1.5rem;
+    color: white;
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: right 0.3s ease;
+}
+
+button:hover::before {
+    right: 50px;
+}
+
+
+
+.register-btn {
+    background-color: #007bff; /* Change to your desired button color */
+    border: none;
+    padding: 20px 20px;
+    cursor: pointer;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 325px;
+}
+
+.register-btn .register-link {
+    color: white; /* Keep the link text white */
+    text-decoration: none; /* Remove underline */
+}
+
+.register-btn .register-link:hover {
+    color: #f0f0f0; /* Optional: a lighter shade on hover */
+}
+.register-btns {
+    background-color: #007bff; /* Change to your desired button color */
+    border: none;
+    padding: 20px 20px;
+    cursor: pointer;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 125px;
+}
+
+.register-btns .register-link {
+    color: white; /* Keep the link text white */
+    text-decoration: none; /* Remove underline */
+}
+
+.register-btns .register-link:hover {
+    color: #f0f0f0; /* Optional: a lighter shade on hover */
+}
+
+/* Button Styles */
+button {
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Blue double gradient */
+    color: white;
+    border: none;
+    padding: 20px 40px; /* Increase padding for larger size */
+    font-size: 1.2rem; /* Increase font size */
+    border-radius: 30px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #2980b9, #1a5276); /* Darker blue gradient on hover */
+}
+
+button::before {
+    content: '→';
+    font-size: 1.5rem;
+    color: white;
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: right 0.3s ease;
+}
+
+button:hover::before {
+    right: 20px;
+}
+
+.coaching-btn {
+    /* Remove previous background to use the general button style */
+}
+
+.coaching-btn:hover {
+    /* Remove previous hover to use the general button hover style */
+}
+
+.register-btn {
+    /* Remove previous background to use the general button style */
+}
+
+.register-btn:hover {
+    /* Remove previous hover to use the general button hover style */
+}
+
+/* Arrow Animation */
+button .arrow {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+button:hover .arrow {
+    transform: translateX(10px);
+}
+
+/* Services Section */
+/* General styling for the services section */
+#services {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+}
+
+.service-box {
+    background: linear-gradient(135deg, #88d3ce, #6e45e2); /* Gradient background */
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    width: 250px;
+    max-width: 90%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #fff;
+}
+
+/* Hover effect for each service box */
+.service-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for the service icon */
+.service-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect on icon to rotate */
+.service-box:hover .service-icon {
+    transform: rotate(360deg);
+}
+
+/* Heading and paragraph styling */
+.service-box h3 {
+    font-size: 2.5rem;
+    margin: 10px 0;
+}
+
+.service-box p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    #services {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .service-box {
+        margin: 15px 0;
+        width: 80%;
+    }
+}
+
+
+/* About Us Section */
+.about-us {
+    position: relative;
+    padding: 100px 20px;
+    color: #fff;
+    text-align: center;
+    background: url('/static/images/office.jpeg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.about-content {
+    max-width: 800px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.about-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.about-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-content h2 {
+        font-size: 2rem;
+    }
+
+    .about-content p {
+        font-size: 1rem;
+    }
+}
+
+
+/* Offerings Section */
+.offerings {
+    padding: 50px 0;
+    text-align: center;
+    background-color: #f9f9f9; /* Light background for contrast */
+    position: relative; /* Positioning context for buttons */
+}
+
+.offerings h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #333; /* Darker text for better readability */
+}
+
+.offerings-cards {
+    display: flex;
+    justify-content: flex-start; /* Align items to the start */
+    overflow: hidden; /* Hide the scrollbar */
+    padding: 10px; /* Add some padding around the cards */
+    gap: 30px; /* Increased space between cards */
+    transition: transform 0.3s ease; /* Smooth transition for sliding */
+}
+
+.offering-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 280px; /* Increased width for better control */
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added shadow transition */
+    flex: 0 0 auto; /* Prevent cards from shrinking */
+}
+
+.offering-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.offering-card img {
+    width: 100%;
+    height: 150px; /* Adjusted height for better aspect ratio */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.offering-card h3 {
+    margin: 15px 0;
+    font-size: 1.5rem;
+    color: #222; /* Darker color for headings */
+}
+
+.offering-card p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Navigation Arrows */
+.arrow {
+    position: absolute; /* Position buttons absolutely within the parent */
+    top: 50%;
+    transform: translateY(-50%); /* Center vertically */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border: none; /* No border */
+    border-radius: 50%; /* Rounded shape for arrows */
+    padding: 10px; /* Some padding */
+    cursor: pointer; /* Pointer cursor */
+    z-index: 1; /* On top of cards */
+}
+
+.arrow i {
+    font-size: 20px; /* Font size for the arrow icon */
+    color: #333; /* Color for the arrow icon */
+}
+
+.arrow-left {
+    left: 10px; /* Position left */
+}
+
+.arrow-right {
+    right: 10px; /* Position right */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .offerings-cards {
+        flex-direction: column; /* Stack cards vertically on smaller screens */
+        align-items: center; /* Center cards */
+    }
+
+    .offering-card {
+        width: 90%; /* Responsive width for smaller screens */
+        max-width: 400px; /* Limit max width */
+    }
+}
+
+
+.contact-section {
+    background: url('/static/images/contact us 1.webp') no-repeat center calc(50% - 120px);
+    background-size: cover;
+    padding: 20px;
+    text-align: center;
+}
+
+
+/* General Styles */
+.contact-section {
+    padding: 40px 20px; /* Adequate padding for top, bottom, and sides */
+    background-color: #f4f4f4; /* Light gray background */
+    text-align: center;
+    color: #333;
+}
+
+.contact-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px; /* Space between contact details and social media */
+    max-width: 600px; /* Limiting the width for better readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff; /* White font color */
+}
+
+.contact-details p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #fff; /* White font color */
+}
+
+.contact-details strong {
+    font-weight: bold;
+    color: #fff; /* White font color for strong text */
+}
+
+/* Social Media Section */
+.social-media {
+    text-align: center;
+}
+
+.social-media h3 {
+    font-size: 1.5rem;
+    color: black; /* White font color */
+    margin-bottom: 20px;
+}
+
+.social-links {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between social media icons */
+}
+
+.social-links li {
+    display: inline-block;
+}
+
+.social-links img {
+    width: 30px; /* Icon size */
+    height: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.social-links a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.social-links img:hover {
+    transform: scale(1.1); /* Slightly larger on hover */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+/* General Mobile Styles */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    /* Hero Section */
+    .hero {
+        height: auto; /* Allow content to dictate height */
+        padding: 20px;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .register-btn {
+        padding: 15px 20px;
+        font-size: 0.9rem;
+    }
+
+    /* Services Section */
+    .services {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .service-box {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    /* Offerings Section */
+    .offerings-cards {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch; /* Smoother scrolling for mobile */
+    }
+
+    .offering-card {
+        min-width: 100%; /* Each card takes full width on small screens */
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+    }
+
+    /* Contact Section */
+    .contact-container {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .contact-details p {
+        font-size: 0.9rem;
+    }
+
+    /* Social Media Icons */
+    .social-links {
+        gap: 15px;
+    }
+
+    .social-links li a {
+        width: 24px;
+        height: 24px;
+        font-size: 1.2rem;
+    }
+}

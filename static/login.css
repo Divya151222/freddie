@@ -1,0 +1,301 @@
+/* Global Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: url('/static/images/loginbg.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login Container Styling */
+.login-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+h2 {
+    color: #ffcc66;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="email"],
+input[type="password"] {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 1rem;
+    transition: 0.3s;
+    outline: none;
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #ccc;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+label[for="role"] {
+    color: #ffcc66;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+select[name="role"] {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 1rem;
+    transition: background 0.3s;
+    outline: none;
+}
+
+select[name="role"]:focus {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+select[name="role"] option {
+    background: #333;
+    color: #fff;
+}
+
+/* Button Styling */
+button {
+    background: linear-gradient(135deg, #ff6f61, #de2f89);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 20px 0;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #de2f89, #ff6f61);
+}
+
+p {
+    color: #fff;
+    margin: 10px 0;
+}
+
+p a {
+    color: #ffcc66;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+p a:hover {
+    color: #ff6f61;
+}
+
+/* Flash Message Styling */
+.flash-messages {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+}
+
+.flash-message {
+    background: #f44336;
+    color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    display: flex;
+    align-items: center;  /* Aligns icon and text horizontally */
+}
+
+.flash-message.success {
+    background: #4CAF50;
+}
+
+.flash-message.error {
+    background: #f44336;
+}
+
+.flash-message.info {
+    background: #2196F3;
+}
+
+.flash-message.warning {
+    background: #ff9800;
+}
+
+/* Error Icon Styling */
+.error-icon {
+    margin-right: 10px; /* Adds space between the icon and text */
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* Password Rules Section Styling */
+.password-rules {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.password-rules ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.password-rules li {
+    margin: 5px 0;
+}
+
+/* Password container to hold input and eye icon */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Style for the password input field */
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%;
+    padding-right: 40px; /* Extra space for eye icon */
+}
+
+/* Eye icon styling */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #888;
+}
+
+/* Eye Icon Rotation */
+.toggle-password i {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.toggle-password i.fa-eye,
+.toggle-password i.fa-eye-slash {
+    transform: rotate(0deg);
+}
+
+.toggle-password i.fa-eye {
+    transform: rotate(0deg);
+}
+
+.toggle-password i.fa-eye-slash {
+    transform: rotate(0deg);
+}
+
+/* Align checkbox with label */
+/* Align checkbox with label */
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Style the checkbox label to have white text */
+.remember-me label {
+    color: white;
+    font-size: 14px; /* Adjust font size if necessary */
+}
+
+/* Style the checkbox itself */
+.remember-me input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Styling for the password input box when the password is hidden */
+.password-container input[type="password"] {
+    background: rgba(255, 255, 255, 0.1); /* Default background when hidden */
+    color: #fff;
+}
+
+/* Styling for the password input box when the password is visible */
+.password-container input[type="text"] {
+    background: rgba(255, 255, 255, 0.2); /* Slightly different background when visible */
+    color: #ffcc66;
+}
+
+/* Default eye icon styling when password is hidden */
+.toggle-password i.fa-eye {
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+/* Eye icon styling when password is visible */
+.toggle-password i.fa-eye-slash {
+    color: #ffcc66;
+    transition: color 0.3s ease;
+}
+
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 30px;
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    .password-rules {
+        font-size: 0.8rem;
+    }
+}

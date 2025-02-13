@@ -1,0 +1,162 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh; /* Full height */
+    background: url('/static/images/register_user.jpg') no-repeat center center fixed; /* Background image */
+    background-size: cover; /* Cover the entire background */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+    color: #ffffff; /* Text color */
+}
+
+.registration-container {
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    padding: 40px;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); /* Shadow effect */
+    max-width: 900px; /* Maximum width */
+    width: 100%; /* Full width on smaller screens */
+    animation: fadeIn 1s ease-in-out; /* Fade-in effect */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.8rem; /* Large heading */
+    margin-bottom: 20px;
+    color: #ffcc66; /* Accent color */
+}
+
+label {
+    display: block;
+    font-size: 1.1rem; /* Slightly larger font */
+    margin-bottom: 8px; /* Spacing below label */
+    color: #e6e6e6; /* Light gray label text */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+    width: 100%; /* Full width */
+    padding: 12px; /* Padding for inputs */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid #fff; /* White border */
+    outline: none; /* No outline on focus */
+    background-color: #444; /* Dark background for inputs */
+    color: #fff; /* White text for inputs */
+    font-size: 1rem; /* Regular font size */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    background-color: #555; /* Lighter background on focus */
+    border-color: #ffcc66; /* Accent border color on focus */
+}
+
+input::placeholder {
+    color: #ccc; /* Placeholder text color */
+}
+
+/* Button Styles */
+button.register-button {
+    width: 100%; /* Full width */
+    padding: 15px; /* Padding for button */
+    border: none; /* No border */
+    border-radius: 10px; /* Rounded corners */
+    background: linear-gradient(135deg, #ff6f61, #de62b2); /* Gradient background */
+    color: #fff; /* White text */
+    font-size: 1.2rem; /* Larger button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background 0.3s ease, transform 0.2s ease; /* Smooth transition */
+    position: relative; /* For animation */
+    overflow: hidden; /* Hide overflow for pseudo element */
+}
+
+button.register-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent overlay */
+    border-radius: 50%; /* Circular overlay */
+    transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease; /* Smooth transition for ripple effect */
+    z-index: 0; /* Behind button text */
+    transform: translate(-50%, -50%) scale(0); /* Initial scale */
+}
+
+button.register-button:hover::before {
+    width: 400%; /* Expand on hover */
+    height: 400%; /* Expand on hover */
+    top: 50%; /* Center the overlay */
+    left: 50%; /* Center the overlay */
+    transform: translate(-50%, -50%) scale(1); /* Scale on hover */
+}
+
+button.register-button:hover {
+    background: linear-gradient(135deg, #de62b2, #ff6f61); /* Reverse gradient on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+button.register-button:active {
+    transform: scale(0.95); /* Smaller on active */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .registration-container {
+        padding: 30px; /* Less padding on smaller screens */
+    }
+
+    h1 {
+        font-size: 2.2rem; /* Smaller heading */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select,
+    textarea {
+        font-size: 0.95rem; /* Smaller input text */
+        padding: 10px; /* Less padding */
+    }
+
+    button.register-button {
+        font-size: 1rem; /* Smaller button text */
+        padding: 12px; /* Less padding */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem; /* Smaller heading */
+    }
+
+    button.register-button {
+        font-size: 0.9rem; /* Smaller button text */
+        padding: 10px; /* Less padding */
+    }
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register_coach.css') }}">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,te,ta,fr,es,ur,ar', // Specify available languages
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false,
+                },
+                'google_translate_element'
+            );
+        }
+    
+        // Save selected language in localStorage
+        function setLanguageCookie() {
+            const selectBox = document.querySelector('.goog-te-combo');
+            if (selectBox) {
+                selectBox.addEventListener('change', () => {
+                    const selectedLang = selectBox.value;
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                });
+            }
+        }
+    
+        // Apply saved language on page load
+        function applySavedLanguage() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                const iframe = document.querySelector('.goog-te-menu-frame');
+                if (iframe) {
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').value = savedLang;
+                    iframe.contentWindow.document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
+                }
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguageCookie();
+            applySavedLanguage();
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <title>Coach Registration</title>
+    <style>
+        /* Styles for the password requirements pop-up */
+        .password-popup {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #333;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            z-index: 1;
+        }
+        .password-popup ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .password-popup li {
+            margin-bottom: 8px;
+            color: red;
+        }
+        .password-eye {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="form-container">
+        <h2>Coach Registration</h2>
+        <form id="registrationForm" action="{{ url_for('register_coach') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="full-name-coach">Full Name:</label>
+                    <input type="text" id="full-name-coach" name="full_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email-coach">Email Address:</label>
+                    <input type="email" id="email-coach" name="email" required>
+                </div>
+                <div class="form-group" style="position: relative;">
+                    <label for="password-coach">Password:</label>
+                    <input type="password" id="password-coach" name="password" required onfocus="showPasswordPopup()" onblur="hidePasswordPopup()">
+                    <i class="password-eye" id="togglePassword" onclick="togglePasswordVisibility()">👁️</i>
+                    <div class="password-popup" id="passwordPopup">
+                        <strong>Password Requirements:</strong>
+                        <ul>
+                            <li id="uppercase">At least one uppercase letter</li>
+                            <li id="lowercase">At least one lowercase letter</li>
+                            <li id="number">At least one number</li>
+                            <li id="special">At least one special character</li>
+                            <li id="length">Minimum of 8 characters</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group" style="position: relative;">
+                    <label for="confirm-password-coach">Confirm Password:</label>
+                    <input type="password" id="confirm-password-coach" name="confirm_password" required>
+                    <i class="password-eye" id="toggleConfirmPassword" onclick="toggleConfirmPasswordVisibility()">👁️</i>
+                </div>
+                <div class="form-group">
+                    <label for="phone-coach">Phone Number:</label>
+                    <input type="tel" id="phone-coach" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="experience-coach">Experience:</label>
+                    <textarea id="experience-coach" name="experience" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="specialization-coach">Specialization:</label>
+                    <select id="specialization-coach" name="specialization" required>
+                        <option value="" disabled selected>Select your specialization</option>
+                        <option value="life-coaching">Life Coaching</option>
+                        <option value="career-coaching">Career Coaching</option>
+                        <option value="health-coaching">Health Coaching</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="qualifications-coach">Qualifications:</label>
+                    <textarea id="qualifications-coach" name="qualifications" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="availability-coach">Availability:</label>
+                    <select id="availability-coach" name="availability" required>
+                        <option value="" disabled selected>Select your availability</option>
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                        <option value="sunday">Sunday</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location-coach">Location:</label>
+                    <input type="text" id="location-coach" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender-coach">Gender:</label>
+                    <select id="gender-coach" name="gender" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="languages-coach">Language(s) Spoken:</label>
+                    <input type="text" id="languages-coach" name="languages" required>
+                </div>
+                <div class="form-group">
+                    <label for="preferred-method-coach">Preferred Coaching Method:</label>
+                    <select id="preferred-method-coach" name="preferred_method" required>
+                        <option value="" disabled selected>Select your preferred method</option>
+                        <option value="in-person">In-Person</option>
+                        <option value="online">Online</option>
+                        <option value="phone">Phone</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="twitter-coach">Twitter Link:</label>
+                    <input type="text" id="twitter-coach" name="twitter" placeholder="Twitter">
+                </div>
+                <div class="form-group">
+                    <label for="facebook-coach">Facebook Link:</label>
+                    <input type="text" id="facebook-coach" name="facebook" placeholder="Facebook">
+                </div>
+                <div class="form-group">
+                    <label for="newsletter-coach">
+                        <input type="checkbox" id="newsletter-coach" name="newsletter">
+                        Subscribe to the newsletter
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="referral-coach">Referral Source:</label>
+                    <select id="referral-coach" name="referral" required>
+                        <option value="" disabled selected>How did you hear about us?</option>
+                        <option value="online-ad">Online Ad</option>
+                        <option value="friend">Friend</option>
+                        <option value="social-media">Social Media</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function showPasswordPopup() {
+            document.getElementById('passwordPopup').style.display = 'block';
+        }
+
+        function hidePasswordPopup() {
+            document.getElementById('passwordPopup').style.display = 'none';
+        }
+
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password-coach');
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+        }
+
+        function toggleConfirmPasswordVisibility() {
+            const confirmPasswordField = document.getElementById('confirm-password-coach');
+            const type = confirmPasswordField.type === 'password' ? 'text' : 'password';
+            confirmPasswordField.type = type;
+        }
+
+        document.getElementById('password-coach').addEventListener('input', function() {
+            const password = this.value;
+            const requirements = {
+                uppercase: /[A-Z]/,
+                lowercase: /[a-z]/,
+                number: /[0-9]/,
+                special: /[!@#$%^&*(),.?":{}|<>]/,
+                length: /^.{8,}$/
+            };
+            
+            for (const [key, regex] of Object.entries(requirements)) {
+                const element = document.getElementById(key);
+                if (regex.test(password)) {
+                    element.style.color = 'green';
+                } else {
+                    element.style.color = 'red';
+                }
+            }
+        });
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            const password = document.getElementById('password-coach').value;
+            const confirmPassword = document.getElementById('confirm-password-coach').value;
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                alert('Passwords do not match!');
+            }
+        });
+    </script>
+</body>
+</html>

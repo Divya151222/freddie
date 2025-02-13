@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='notifications.css') }}">
+    <title>User Notifications</title>
+</head>
+<style>
+.nav-right {
+    position: relative; /* Make nav-right relative for absolute positioning of dropdowns */
+}
+
+.user-avatar {
+    cursor: pointer; /* Indicate that the avatar is clickable */
+    padding: 10px;
+    background-color: #e74c3c; /* Avatar background color */
+    color: white; /* Change text color to white for contrast */
+    font-weight: bold; /* Optional: Make the font bold */
+    border-radius: 50%; /* Make it circular */
+    display: inline-block; /* Ensure it sizes properly */
+    text-align: center; /* Center the text */
+    width: 40px; /* Set a fixed width */
+    height: 40px; /* Set a fixed height */
+    line-height: 40px; /* Center text vertically */
+    text-transform: uppercase; /* Ensure the text is capitalized */
+}
+
+.user-avatar:hover {
+    transform: scale(1.1); /* Slightly larger on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
+}
+
+.dropdown-content, .theme-dropdown {
+    display: none; /* Initially hidden */
+    position: absolute; /* Position dropdowns under the avatar */
+    top: 100%; /* Position it directly below the avatar */
+    left: 0; /* Align left with the avatar */
+    background-color: white; /* Background for dropdowns */
+    border: 1px solid #ccc; /* Optional border */
+    z-index: 1000; /* Ensure it appears above other content */
+    width: 150px; /* Set width for dropdowns */
+}
+
+.dropdown-item {
+    padding: 10px; /* Padding for items */
+    cursor: pointer; /* Indicate that items are clickable */
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0; /* Highlight on hover */
+}
+</style>
+<body class="default-theme">
+    <div class="navbar">
+        <ul>
+            <li><a href="{{ url_for('user_dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('coach_topic_selection') }}">Coach&Topic</a></li>
+            <li><a href="{{ url_for('notifications') }}">Notifications</a></li>
+            <li><a href="{{ url_for('chatbot') }}">Freddie</a></li>
+            <!-- Theme Selector in the Navbar -->
+            <li onclick="toggleDropdown(event)">Theme
+                <div id="themeDropdown" class="dropdown">
+                    <div class="dropdown-item" onclick="changeTheme('default-theme')">Default</div>
+                    <div class="dropdown-item" onclick="changeTheme('dark-theme')">Dark</div>
+                    <div class="dropdown-item" onclick="changeTheme('minimalist-theme')">Minimalist</div>
+                    <div class="dropdown-item" onclick="changeTheme('material-theme')">Material</div>
+                    <div class="dropdown-item" onclick="changeTheme('gradient-theme')">Gradient</div>
+                    <div class="dropdown-item" onclick="changeTheme('nature-theme')">Nature</div>
+                    <div class="dropdown-item" onclick="changeTheme('professional-theme')">Professional</div>
+                    <div class="dropdown-item" onclick="changeTheme('techy-theme')">Techy</div>
+                    <div class="dropdown-item" onclick="changeTheme('elegant-theme')">Elegant</div>
+                    <div class="dropdown-item" onclick="changeTheme('playful-theme')">Playful</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="notifications" class="section active">
+        <div class="container">
+            <h3>Your Notifications</h3>
+            <!-- Notification content has been removed -->
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle the theme dropdown
+        function toggleDropdown(event) {
+            const dropdown = document.getElementById('themeDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+
+            // Close dropdown if clicked outside
+            document.addEventListener('click', function (e) {
+                if (!event.target.closest('.navbar') && dropdown.style.display === 'block') {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

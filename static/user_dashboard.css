@@ -1,0 +1,222 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 10px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: fadeInSlide 1s ease-in-out;
+}
+
+@keyframes fadeInSlide {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-right: 25px;
+    position: relative;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.user-avatar {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.user-avatar:hover {
+    transform: rotate(360deg);
+}
+
+.dropdown-content, .theme-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    width: 150px;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Welcome Container */
+.welcome-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: auto;
+    margin-top: 40px;
+}
+
+/* Flexbox styles for container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Section Styles */
+.section {
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 900px;
+    background-color: rgba(0, 0, 0, 0.8); /* Changed to semi-transparent black */
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeInScale 0.5s ease-in-out;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; }
+}
+
+h1 {
+    font-size: 4vw; /* Responsive font size */
+    color: #fff; /* White text for better visibility */
+}
+
+p {
+    color: #fff; /* White text for better visibility */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar ul li {
+        margin-bottom: 15px;
+    }
+
+    .section {
+        padding: 20px;
+        margin: 15px;
+    }
+
+    h1 {
+        font-size: 28px; /* Adjusted for smaller screens */
+    }
+
+    input, select, button {
+        font-size: 16px;
+        width: 100%; /* Full width for better usability */
+        padding: 12px; /* Increased padding for touch targets */
+    }
+
+    .user-avatar {
+        width: 50px; /* Slightly larger on mobile */
+        height: 50px;
+        line-height: 50px;
+    }
+}
+
+/* Themes */
+.default-theme {
+    background-image: url('/static/images/ud.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.dark-theme {
+    background-image: url('/static/images/dark theme.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.minimalist-theme {
+    background-image: url('/static/images/minimal-theme.jpg');
+}
+
+.gradient-theme {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+.nature-theme {
+    background-image: url('/static/images/nt.jpg');
+    background-size: cover;
+}
+
+.techy-theme {
+    background-image: url('/static/images/tech theme.jpeg');
+    background-size: cover;
+}
+
+.elegant-theme {
+    background-image: url('/static/images/otp.jpeg');
+    background-size: cover;
+}
+
+.playful-theme {
+    background-image: url('/static/images/playtheme.jpeg');
+}
+
+/* Additional Animations for Themes */
+@keyframes backgroundChange {
+    from { filter: brightness(0.8); }
+    to { filter: brightness(1); }
+}
+
+body.theme-active {
+    animation: backgroundChange 1s ease-in-out;
+}

@@ -1,0 +1,170 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and HTML Setup */
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/static/images/forget1.jpg') no-repeat center center fixed; /* Shared Background */
+    background-size: cover;
+    color: #fff;
+    overflow: hidden;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Container Styling */
+#container {
+    background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    border-radius: 15px;
+    padding: 50px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideUp 1.5s ease-out;
+}
+
+/* Slide Up Animation for container */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Heading Styles */
+h2 {
+    font-size: 2.2rem;
+    color: #FF5733; /* Warm orange */
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styling */
+label {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    text-align: left;
+    color: #ddd;
+}
+
+/* Input Field Styling */
+input {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 2px solid #FF5733; /* Warm orange */
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 1rem;
+    color: #fff;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Input Focus Effect */
+input:focus {
+    border-color: #FF7043; /* Lighter orange */
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.5);
+}
+
+/* Button Styling */
+button {
+    padding: 14px;
+    font-size: 1rem;
+    border: none;
+    background: linear-gradient(45deg, #FF5733, #FF7043);
+    color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+    margin-top: 20px;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background: linear-gradient(45deg, #FF7043, #FF5733);
+    transform: translateY(-3px); /* Slight lift effect */
+}
+
+/* Message Display */
+#message {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #FF5733;
+    font-weight: bold;
+}
+
+/* Verify OTP Button Styling */
+#verify-otp-button {
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    background: linear-gradient(45deg, #FF7043, #FF5733); /* Inverted gradient to differentiate */
+    color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+    margin-top: 15px;
+}
+
+/* Hover Effect for Verify OTP Button */
+#verify-otp-button:hover {
+    background: linear-gradient(45deg, #FF5733, #FF7043); /* Color flip on hover */
+    transform: translateY(-3px);
+}
+
+/* Focus Effect for Accessibility */
+#verify-otp-button:focus {
+    outline: 2px solid #FF7043;
+    box-shadow: 0 0 10px rgba(255, 112, 67, 0.5);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #container {
+        padding: 30px;
+        max-width: 90%;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    input, button {
+        font-size: 1rem;
+    }
+}

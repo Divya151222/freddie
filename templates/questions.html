@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='questions.css') }}">
+    <style>
+        .hidden {
+            display: none;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc; /* Add border to table cells */
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4; /* Light gray background for header */
+            color: black; /* Set header text color to black */
+        }
+        td {
+            color: black; /* Default table data text color */
+        }
+        .question-text {
+            color: white; /* Set question text color to white */
+        }
+        .question-id {
+            color: white; /* Set Question ID color to white */
+        }
+        .btn {
+            margin-right: 5px; /* Add some space between buttons */
+        }
+        .edit-input {
+            width: 70%; /* Width for the input field */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#" id="welcomeLink">Welcome</a></li>
+            <li><a href="#" id="listQuestionsLink">List Questions</a></li>
+            <li><a href="#" id="createQuestionsLink">Create Questions</a></li>
+            <li><a href="#" id="notificationsLink">Notifications</a></li>
+        </ul>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="content-section hidden">
+        <h1>Welcome to the Questions Section</h1>
+        <p>This section provides tools to manage and create questions.</p>
+    </section>
+
+    <!-- Section 1: List Questions -->
+    <section id="section1" class="content-section hidden">
+        <h2>List Questions</h2>
+        <p>Here you can view all the questions that have been created.</p>
+        <button class="btn" id="listQuestions">View Questions</button>
+        <!-- Table to display the questions -->
+        <table id="questionsTable" class="hidden">
+            <thead>
+                <tr>
+                    <th>Question ID</th>
+                    <th>Question</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="questionsTableBody">
+                <!-- Questions will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Section 2: Create Questions -->
+    <section id="section2" class="content-section hidden">
+        <h2>Create a New Question</h2>
+        <p>Select the organization, department, and phase to create a new question.</p>
+
+        <!-- Form Group for Dropdowns -->
+        <div class="form-group">
+            <select class="dropdown" id="organizationDropdown">
+                <option>Organization</option>
+                <option>Ecogreen Solutions</option>
+                <option>GlobalTech Innovation</option>
+                <option>Fine Secure Enterprises</option>
+            </select>
+
+            <select class="dropdown" id="departmentDropdown">
+                <option>Department</option>
+                <option>Capital Financial</option>
+                <option>Prime Invest Holdings</option>
+                <option>Wealthwise Advisors</option>
+            </select>
+
+            <select class="dropdown" id="phaseDropdown">
+                <option>Phase</option>
+                <option>Present Situation</option>
+                <option>Accountability</option>
+                <option>Reward and follow-up</option>
+            </select>
+        </div>
+
+        <button class="btn" id="continueQuestion">Continue Creating a Question</button>
+    </section>
+
+    <!-- Section 3: Notifications -->
+    <section id="section3" class="content-section hidden">
+        <h2>Notifications</h2>
+        <p>View notifications related to your questions and activity.</p>
+        <button class="btn" id="viewNotifications">View Notifications</button>
+    </section>
+
+    <!-- Section for Question Creation (Hidden Initially) -->
+    <section id="questionCreationSection" class="content-section hidden">
+        <h2>Create Your Questions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Question ID</th>
+                    <th>Question</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="questionTableBody">
+                <tr>
+                    <td class="question-id">CPRAC001</td>
+                    <td class="question-text">What specific actions did you commit to last week?</td>
+                    <td>
+                        <button class="btn edit-btn">Edit</button>
+                        <button class="btn delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="question-id">ECPRAC002</td>
+                    <td class="question-text">What obstacles did you encounter, and how did you address them?</td>
+                    <td>
+                        <button class="btn edit-btn">Edit</button>
+                        <button class="btn delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="question-id">ECPRAC003</td>
+                    <td class="question-text">How do you feel about your progress since our last session?</td>
+                    <td>
+                        <button class="btn edit-btn">Edit</button>
+                        <button class="btn delete-btn">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn save-btn">Save</button>
+    </section>
+
+    <script>
+        // Function to hide all sections
+        function hideAllSections() {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+        }
+
+        // Function to display questions
+        function displayQuestions() {
+            const questions = [
+                { id: 'CPRAC001', text: 'What specific actions did you commit to last week?' },
+                { id: 'CPRAC002', text: 'What obstacles did you encounter, and how did you address them?' },
+                { id: 'CPRAC003', text: 'How do you feel about your progress since our last session?' },
+                { id: 'CPRAC004', text: 'What new skills or knowledge have you gained recently?' },
+                { id: 'CPRAC005', text: 'How are you managing your work-life balance?' },
+                { id: 'CPRAC006', text: 'What are your goals for the upcoming week?' },
+                { id: 'CPRAC007', text: 'How do you plan to overcome the challenges you faced last week?' },
+                { id: 'CPRAC008', text: 'What resources do you need to achieve your current goals?' }
+            ];
+
+            const tableBody = document.getElementById('questionsTableBody');
+            tableBody.innerHTML = ''; // Clear existing content
+
+            questions.forEach(question => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="question-id">${question.id}</td>
+                    <td class="question-text">${question.text}</td>
+                    <td>
+                        <button class="btn edit-btn">Edit</button>
+                        <button class="btn delete-btn">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            document.getElementById('questionsTable').classList.remove('hidden');
+        }
+
+        // Show the welcome section
+        document.getElementById('welcomeLink').onclick = function() {
+            hideAllSections();
+            document.getElementById('welcome').classList.remove('hidden');
+        };
+
+        // Show the list questions section
+        document.getElementById('listQuestionsLink').onclick = function() {
+            hideAllSections();
+            document.getElementById('section1').classList.remove('hidden');
+        };
+
+        // Show the create questions section
+        document.getElementById('createQuestionsLink').onclick = function() {
+            hideAllSections();
+            document.getElementById('section2').classList.remove('hidden');
+        };
+
+        // Show the notifications section
+        document.getElementById('notificationsLink').onclick = function() {
+            hideAllSections();
+            document.getElementById('section3').classList.remove('hidden');
+        };
+
+        // Display questions when "View Questions" button is clicked
+        document.getElementById('listQuestions').onclick = function() {
+            displayQuestions();
+        };
+
+        document.getElementById('continueQuestion').onclick = function() {
+            // Show the Question Creation Section
+            hideAllSections();
+            document.getElementById('questionCreationSection').classList.remove('hidden');
+        };
+
+        document.getElementById('viewNotifications').onclick = function() {
+            alert("Viewing Notifications...");
+        };
+
+        // Edit and Delete question functionality
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.onclick = function(event) {
+                const questionRow = event.target.closest('tr');
+                const questionTextElement = questionRow.querySelector('.question-text');
+                const originalText = questionTextElement.textContent;
+                const input = document.createElement('input');
+                input.value = originalText;
+                input.className = 'edit-input';
+                questionTextElement.innerHTML = '';
+                questionTextElement.appendChild(input);
+
+                // Save the edit when clicking outside or pressing Enter
+                input.addEventListener('blur', function() {
+                    questionTextElement.textContent = input.value;
+                });
+
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        questionTextElement.textContent = input.value;
+                    }
+                });
+
+                input.focus(); // Focus on the input field immediately
+            };
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.onclick = function(event) {
+                const questionRow = event.target.closest('tr');
+                questionRow.remove();
+            };
+        });
+    </script>
+
+</body>
+</html>
